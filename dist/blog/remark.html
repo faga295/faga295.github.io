@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>remark和unified学习 | faga&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/assets/css/0.styles.495d9abf.css" as="style"><link rel="preload" href="/assets/js/app.fefb6dfb.js" as="script"><link rel="preload" href="/assets/js/2.b484d38a.js" as="script"><link rel="preload" href="/assets/js/12.aad4b993.js" as="script"><link rel="prefetch" href="/assets/js/10.f939c8a1.js"><link rel="prefetch" href="/assets/js/11.6bc7be44.js"><link rel="prefetch" href="/assets/js/13.4edd3ea6.js"><link rel="prefetch" href="/assets/js/14.42d535d5.js"><link rel="prefetch" href="/assets/js/3.cb0dc1f0.js"><link rel="prefetch" href="/assets/js/4.1b25182a.js"><link rel="prefetch" href="/assets/js/5.d6b6314a.js"><link rel="prefetch" href="/assets/js/6.b7624161.js"><link rel="prefetch" href="/assets/js/7.e963be38.js"><link rel="prefetch" href="/assets/js/8.d3ecda6a.js"><link rel="prefetch" href="/assets/js/9.c3e2d738.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.495d9abf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">faga's blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/blog/" class="nav-link router-link-active">
+  笔记
+</a></div><div class="nav-item"><a href="https://github.com/faga1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/blog/" class="nav-link router-link-active">
+  笔记
+</a></div><div class="nav-item"><a href="https://github.com/faga1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/blog/" aria-current="page" class="sidebar-link">faga blog</a></li><li><a href="/blog/react.html" class="sidebar-link">react源码架构</a></li><li><a href="/blog/web_upload_oss.html" class="sidebar-link">web端上传oss</a></li><li><a href="/blog/webpack.html" class="sidebar-link">webpack原理</a></li><li><a href="/blog/react.html" class="sidebar-link">react源码架构</a></li><li><a href="/blog/interview.html" class="sidebar-link">前端面试</a></li><li><a href="/blog/commonjs&amp;esmodule.html" class="sidebar-link">commonjs和esmodule的区别</a></li><li><a href="/blog/remark.html" aria-current="page" class="active sidebar-link">remark和unified学习</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/remark.html#plugin" class="sidebar-link">Plugin</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/remark.html#function-attacher-options" class="sidebar-link">function attacher(options?)</a></li><li class="sidebar-sub-header"><a href="/blog/remark.html#function-transformer-tree-file-next" class="sidebar-link">function transformer(tree,file[,next])</a></li></ul></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="remark"><a href="#remark" class="header-anchor">#</a> remark</h1> <p>remark不单单是一个markdown的编译工具，更准确地说，它是一个围绕markdown的生态。通过插件化的方式，对mdast进行修改，使其转化成我们想要的样子。<code>remarkParse</code>就是将<code>markdown</code>编译为mdast的插件。</p> <div class="language- extra-class"><pre class="language-text"><code>import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+
+main()
+
+async function main() {
+  const file = await unified()
+    .use(remarkParse) // markdown -&gt; mdast
+    .use(remarkRehype) // mdast -&gt; hast
+    .use(rehypeSanitize) // sanitize HTML
+    .use(rehypeStringify) // hast -&gt; string
+    .process('# Hello, Neptune!')
+
+  console.log(String(file))
+}
+</code></pre></div><h1 id="unified"><a href="#unified" class="header-anchor">#</a> unified</h1> <p><code>unified</code>相当于一种管道传输的思想，我们把内容放到管道里，先对其解析，解析为<a href="https://github.com/syntax-tree" target="_blank" rel="noopener noreferrer">ast<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，再使用一个一个插件处理ast，管道中的内容是以ast的形式传输的，最终将ast编译，并在管道的另一头获取到被处理后的内容。</p> <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/image-20220708230927329.png" alt="image-20220708230927329"></p> <div class="language- extra-class"><pre class="language-text"><code>| ........................ process ........................... |
+| .......... parse ... | ... run ... | ... stringify ..........|
+
+          +--------+                     +----------+
+Input -&gt;- | Parser | -&gt;- Syntax Tree -&gt;- | Compiler | -&gt;- Output
+          +--------+          |          +----------+
+                              X
+                              |
+                       +--------------+
+                       | Transformers |
+                       +--------------+
+</code></pre></div><p><code>unified</code>其实际上只是一个配置<code>processor</code>的过程，<code>unified()</code>返回值是一个<code>processor</code>,<code>processor.use()</code>返回是一个被配置过的<code>processor</code>,在配置一个插件后，我们可以使用<code>processor.process()</code>或<code>processor.processSync()</code>处理。</p> <p><code>processor.processSync(file:VFile|undefined):VFile</code></p> <p>如果我们传入的值不是VFile，则会自动的使用<code>new VFile(x)</code> 将其转化为<code>VFile</code></p> <p>输出的<code>VFile</code>我们可以使用<code>String(VFile)</code> 或 <code>VFile.toString()</code>获取到其中的内容</p> <h2 id="plugin"><a href="#plugin" class="header-anchor">#</a> Plugin</h2> <p>插件是用于配置<code>processor</code>的，那么我们该如何写一个自己的插件呢</p> <h3 id="function-attacher-options"><a href="#function-attacher-options" class="header-anchor">#</a> function attacher(options?)</h3> <p><strong>parameters</strong></p> <p><code>options</code> -- configuration</p> <p><strong>Return</strong></p> <p><code>transformer</code></p> <p><code>Plugin</code>应该是一个可以接收options，并且返回<code>transformer</code>的函数</p> <h3 id="function-transformer-tree-file-next"><a href="#function-transformer-tree-file-next" class="header-anchor">#</a> function transformer(tree,file[,next])</h3> <p>transformer是用来处理<code>syntax tree</code>和<code>VFile</code>的函数。</p> <p>以下是官方的例子</p> <p>move.js</p> <div class="language- extra-class"><pre class="language-text"><code>export function move(options) {
+  if (!options || !options.extname) {
+    throw new Error('Missing `options.extname`')
+  }
+
+  return function (tree, file) {
+    if (file.extname &amp;&amp; file.extname !== options.extname) {
+      file.extname = options.extname
+    }
+  }
+}
+</code></pre></div><p>index.js</p> <div class="language- extra-class"><pre class="language-text"><code>import {read, write} from 'to-vfile'
+import {reporter} from 'vfile-reporter'
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import {move} from './move.js'
+
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(move, {extname: '.html'})
+  .use(rehypeStringify)
+  .process(await read('index.md'))
+
+console.error(reporter(file))
+await write(file) // written VFile to ‘index.html’
+</code></pre></div><p>index.html</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;h1&gt;Hello, world!&lt;/h1&gt;
+</code></pre></div><h1 id="实际应用"><a href="#实际应用" class="header-anchor">#</a> 实际应用</h1> <p>这是在我写一个vscode的插件时碰到的问题，这个vscode插件是用于预览markdown的，虽然插件市场已经有很多预览markdown的插件了，但是由于一些原因，这个插件需要使用remark来实现，所以需要重新做一个。</p> <p>在需要实现滚动锁定功能的时候，其他插件的实现方法是，对每一个<code>HTML Element</code>添加一个属性:<code>data-line</code>(指的是该html在编辑器的位置)，这样我在滚动预览页面的时候就只需要找到能看到的最上面的<code>HTML Element</code> 再找到与之对应的<code>data-line</code> 接着滚动编辑器即可。</p> <p>因此思路也非常清晰了，我们需要在对<code>hast</code>的处理过程中加上一步(添加data-line属性)，接着，我们开始编写此插件</p> <p>rehype-source-line.ts</p> <div class="language- extra-class"><pre class="language-text"><code>import {visit} from 'unist-util-visit';// 用于访问语法树的节点
+
+export default function rehypeSourceLine() {
+  return (tree:any) =&gt; {
+    visit(tree, (node) =&gt; {
+        if(node.position){
+          node.properties = {dataLine: node.position.start.line};
+        }
+    });
+  };
+}
+</code></pre></div><p>让我们来看看效果</p> <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/image-20220710150532940.png" alt="image-20220710150532940"></p> <p>ok，那么这样一个简单的插件就完成了，那么我们能不能再尝试着改进一下呢，如果我想所有<code>data-line</code>都等于1呢，或者是如果我想设置其他属性，或者就不叫<code>data-line</code>呢，那么我这个插件使用的场景就太小了，因此一个可配置的插件才是一个合格的插件。接下来，我们应该给我们这个插件一个定位，我们到底是要做一个配置属性的插件，还是给html加上<code>data-line</code>的插件，很显然，配置属性并不是我们写这个插件的初衷，我们更想要的是，让人们更方便的给<code>HTML Element</code>加上位置属性。</p> <p>接下来我们对之前不完善的场景提出解决方案。我的解决方案是如果用户没有输入配置，那么就和之前一样。如果用户输入了配置，配置提供两个配置项，一个是<code>propertyName</code>一个是<code>value</code>,这个<code>value</code>可以是一个数字，也可以是一个字符串数组，用于指定value的路径，比如说我输入一个<code>[position,start,line]</code> 那么<code>value</code>则是<code>node.position.start.line</code>。</p> <p>具体实现如下：</p> <div class="language- extra-class"><pre class="language-text"><code>import {visit} from 'unist-util-visit';
+
+interface Options{
+  propertyName?:string,
+  value?:string|number|string[]
+}
+export default function rehypeSourceLine(options?:Options) {
+  return (tree:any) =&gt; {
+    visit(tree, (node) =&gt; {
+        if(node.position){
+          if(!options||!options.propertyName&amp;&amp;!options.value){
+            node.properties = {dataLine: node.position.start.line};
+          }else{
+            const propertyName = options.propertyName?options.propertyName:'dataLine';
+            if(options.value){
+              const { value } = options;
+              if(Array.isArray(value)){
+                const realValue = value.reduce((pre,cur)=&gt;{
+                  return pre[cur];
+                },node);
+                node.properties = {[propertyName]:realValue};
+              }else{
+                node.properties = {[propertyName]:value};
+              }
+            }else{
+              node.properties = {[propertyName]:node.position.start.line};
+            }
+          }
+
+        }
+    });
+  };
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/commonjs&amp;esmodule.html" class="prev">
+        commonjs和esmodule的区别
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.fefb6dfb.js" defer></script><script src="/assets/js/2.b484d38a.js" defer></script><script src="/assets/js/12.aad4b993.js" defer></script>
+  </body>
+</html>
