@@ -6,10 +6,10 @@ tagline: faga's blog
 actionText: welcome →
 actionLink: /blog/
 features:
-- title: 我是...
-  details: 一个前端，大二在读
-- title: 记录了...
+- title: About Me
+  details: 一个前端，大三在读
+- title: About Blog
   details: 主要记录前端学习过程中的笔记
-- title: 学习中...
+- title: My Expectation
   details: 努力学习，尽量产出更高质量的文章
 ---
