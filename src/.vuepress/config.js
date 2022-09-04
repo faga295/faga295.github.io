@@ -14,13 +14,12 @@ module.exports = {
       sidebar: {
         '/blog/':[
           '',
+          'remark',
           'react',
           'web_upload_oss',
           'webpack',
-          'react',
           'interview',
           'commonjs&esmodule',
-          'remark'
         ]
       }
     }
