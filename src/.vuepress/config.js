@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
     title: "faga's blog",
     description: 'Just playing around',
-    dest:'dist',
+    dest:'docs',
     themeConfig: {
       sidebarDepth:2,
       searchMaxSuggestions: 10,
