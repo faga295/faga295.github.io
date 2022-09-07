@@ -139,8 +139,8 @@ import {visit} from 'unist-util-visit';// 用于访问语法树的节点
 export default function rehypeSourceLine() {
   return (tree:any) => {
     visit(tree, (node) => {
-        if(node.position){
-          node.properties = {dataLine: node.position.start.line};
+        if(node.position && node.properties){
+          node.properties.dataLine = node.position.start.line;
         }
     });
   };
@@ -151,45 +151,4 @@ export default function rehypeSourceLine() {
 
 ![image-20220710150532940](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/image-20220710150532940.png)
 
-ok，那么这样一个简单的插件就完成了，那么我们能不能再尝试着改进一下呢，如果我想所有`data-line`都等于1呢，或者是如果我想设置其他属性，或者就不叫`data-line`呢，那么我这个插件使用的场景就太小了，因此一个可配置的插件才是一个合格的插件。接下来，我们应该给我们这个插件一个定位，我们到底是要做一个配置属性的插件，还是给html加上`data-line`的插件，很显然，配置属性并不是我们写这个插件的初衷，我们更想要的是，让人们更方便的给`HTML Element`加上位置属性。
-
-接下来我们对之前不完善的场景提出解决方案。我的解决方案是如果用户没有输入配置，那么就和之前一样。如果用户输入了配置，配置提供两个配置项，一个是`propertyName`一个是`value`,这个`value`可以是一个数字，也可以是一个字符串数组，用于指定value的路径，比如说我输入一个`[position,start,line]` 那么`value`则是`node.position.start.line`。
-
-具体实现如下：
-
-```
-import {visit} from 'unist-util-visit';
-
-interface Options{
-  propertyName?:string,
-  value?:string|number|string[]
-}
-export default function rehypeSourceLine(options?:Options) {
-  return (tree:any) => {
-    visit(tree, (node) => {
-        if(node.position){
-          if(!options||!options.propertyName&&!options.value){
-            node.properties = {dataLine: node.position.start.line};
-          }else{
-            const propertyName = options.propertyName?options.propertyName:'dataLine';
-            if(options.value){
-              const { value } = options;
-              if(Array.isArray(value)){
-                const realValue = value.reduce((pre,cur)=>{
-                  return pre[cur];
-                },node);
-                node.properties = {[propertyName]:realValue};
-              }else{
-                node.properties = {[propertyName]:value};
-              }
-            }else{
-              node.properties = {[propertyName]:node.position.start.line};
-            }
-          }
-
-        }
-    });
-  };
-}
-```
-
+ok，那么这样一个简单的插件就完成了,不过
