@@ -151,4 +151,4 @@ export default function rehypeSourceLine() {
 
 ![image-20220710150532940](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/image-20220710150532940.png)
 
-ok，那么这样一个简单的插件就完成了,不过
+ok，那么这样一个简单的插件就完成了。
