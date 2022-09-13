@@ -2,14 +2,14 @@ import {
   resolveRepoType
 } from "./chunk-TQJYOK4F.js";
 import {
+  useDarkMode
+} from "./chunk-HYODCAD4.js";
+import {
   AutoLink_default
 } from "./chunk-QWSNCEJS.js";
 import {
   Icon_default
 } from "./chunk-PBSZYER2.js";
-import {
-  useDarkMode
-} from "./chunk-HYODCAD4.js";
 import {
   useAutoLink,
   useMobile,

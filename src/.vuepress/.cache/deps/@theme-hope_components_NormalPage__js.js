@@ -17,6 +17,9 @@ import {
   getAncestorLinks
 } from "./chunk-TQJYOK4F.js";
 import {
+  useDarkMode
+} from "./chunk-HYODCAD4.js";
+import {
   useSidebarItems
 } from "./chunk-E45H3KJK.js";
 import {
@@ -25,9 +28,6 @@ import {
 import {
   Icon_default
 } from "./chunk-PBSZYER2.js";
-import {
-  useDarkMode
-} from "./chunk-HYODCAD4.js";
 import {
   useAutoLink,
   useNavigate,
