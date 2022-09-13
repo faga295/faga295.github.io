@@ -1,6 +1,6 @@
 export const pagesRoutes = [
-  ["v-8daa1a0e","/",{"title":"","type":"home","readingTime":{"minutes":0.27,"words":80},"excerpt":""},["/index.html","/README.md"]],
-  ["v-145ac574","/blog/",{"title":"faga's blog","type":"article","readingTime":{"minutes":0.04,"words":11},"excerpt":""},["/blog/index.html","/blog/README.md"]],
+  ["v-8daa1a0e","/",{"title":"","type":"home","readingTime":{"minutes":0.27,"words":80},"excerpt":"","date":"2022-09-04T13:55:15.000Z"},["/index.html","/README.md"]],
+  ["v-145ac574","/blog/",{"title":"faga's blog","type":"article","readingTime":{"minutes":0.04,"words":11},"excerpt":"","date":"2022-09-04T13:55:15.000Z"},["/blog/index.html","/blog/README.md"]],
   ["v-411eebfe","/blog/commonjs&esmodule.html",{"title":"commonjs和esmodule的区别","type":"article","readingTime":{"minutes":4.07,"words":1221},"excerpt":"","date":"2022-02-13T18:39:15.000Z","localizedDate":"February 14, 2022"},["/blog/commonjs&esmodule","/blog/commonjs&esmodule.md"]],
   ["v-7b7b3b28","/blog/interview.html",{"title":"前端面试","type":"article","readingTime":{"minutes":116.85,"words":35055},"excerpt":"","date":"2021-10-15T21:58:54.000Z","localizedDate":"October 16, 2021"},["/blog/interview","/blog/interview.md"]],
   ["v-42c4032e","/blog/react.html",{"title":"react源码架构","type":"article","readingTime":{"minutes":27.64,"words":8293},"excerpt":"","date":"2022-03-22T10:30:47.000Z","localizedDate":"March 22, 2022"},["/blog/react","/blog/react.md"]],
