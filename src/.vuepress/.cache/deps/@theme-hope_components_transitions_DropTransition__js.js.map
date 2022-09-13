@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["dep:@theme-hope_components_transitions_DropTransition__js"],
+  "sourcesContent": ["import d from \"../../../../node_modules/vuepress-theme-hope/lib/client/components/transitions/DropTransition.js\";export default d;"],
+  "mappings": ";;;;;;;;AAAiH,IAAO,8DAAQ;",
+  "names": []
+}

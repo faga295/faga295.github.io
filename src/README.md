@@ -1,7 +1,9 @@
 ---
 home: true
+layout: Blog
 heroImage: https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/微信图片_20220607163536.jpg
 heroText: faga
+heroFUllScreen: true
 tagline: faga's blog
 actionText: welcome →
 actionLink: /blog/

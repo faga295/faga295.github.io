@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["dep:autosize"],
+  "sourcesContent": ["import d from \"../../../../node_modules/autosize/dist/autosize.esm.js\";export default d;"],
+  "mappings": ";;;;;;AAAuE,IAAO,mBAAQ;",
+  "names": []
+}

@@ -1,0 +1,18 @@
+export const pagesRoutes = [
+  ["v-8daa1a0e","/",{"title":"","type":"home","readingTime":{"minutes":0.27,"words":80},"excerpt":"","date":"2022-09-04T13:55:15.000Z"},["/index.html","/README.md"]],
+  ["v-145ac574","/blog/",{"title":"faga's blog","type":"article","readingTime":{"minutes":0.04,"words":11},"excerpt":"","date":"2022-09-04T13:55:15.000Z"},["/blog/index.html","/blog/README.md"]],
+  ["v-411eebfe","/blog/commonjs&esmodule.html",{"title":"commonjs和esmodule的区别","type":"article","readingTime":{"minutes":4.07,"words":1221},"excerpt":"","date":"2022-02-13T18:39:15.000Z","localizedDate":"February 14, 2022"},["/blog/commonjs&esmodule","/blog/commonjs&esmodule.md"]],
+  ["v-7b7b3b28","/blog/interview.html",{"title":"前端面试","type":"article","readingTime":{"minutes":116.85,"words":35055},"excerpt":"","date":"2021-10-15T21:58:54.000Z","localizedDate":"October 16, 2021"},["/blog/interview","/blog/interview.md"]],
+  ["v-42c4032e","/blog/react.html",{"title":"react源码架构","type":"article","readingTime":{"minutes":27.64,"words":8293},"excerpt":"","date":"2022-03-22T10:30:47.000Z","localizedDate":"March 22, 2022"},["/blog/react","/blog/react.md"]],
+  ["v-3443b765","/blog/remark.html",{"title":"remark和unified学习","type":"article","readingTime":{"minutes":2.75,"words":826},"excerpt":"","date":"2022-07-08T00:00:00.000Z","localizedDate":"July 8, 2022"},["/blog/remark","/blog/remark.md"]],
+  ["v-4ffc2ec9","/blog/web_upload_oss.html",{"title":"web端上传oss","type":"article","readingTime":{"minutes":5.37,"words":1610},"excerpt":"","date":"2022-01-05T11:10:13.000Z","localizedDate":"January 5, 2022"},["/blog/web_upload_oss","/blog/web_upload_oss.md"]],
+  ["v-f97d9e00","/blog/webpack.html",{"title":"webpack原理","type":"article","readingTime":{"minutes":16.8,"words":5039},"excerpt":"","date":"2022-02-22T19:55:11.000Z","localizedDate":"February 23, 2022"},["/blog/webpack","/blog/webpack.md"]],
+  ["v-3706649a","/404.html",{"title":"","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/404"]],
+  ["v-5bc93818","/category/",{"title":"Category","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/category/index.html"]],
+  ["v-744d024e","/tag/",{"title":"Tag","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/tag/index.html"]],
+  ["v-e52c881c","/article/",{"title":"Articles","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/article/index.html"]],
+  ["v-75ed4ea4","/encrypted/",{"title":"Encrypted","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/encrypted/index.html"]],
+  ["v-d804e652","/slide/",{"title":"Slides","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/slide/index.html"]],
+  ["v-154dc4c4","/star/",{"title":"Star","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/star/index.html"]],
+  ["v-01560935","/timeline/",{"title":"Timeline","type":"page","readingTime":{"minutes":0,"words":0},"excerpt":""},["/timeline/index.html"]],
+]
