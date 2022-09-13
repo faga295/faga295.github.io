@@ -34,7 +34,7 @@ export default defineUserConfig({
         blog: true,
         comment: {
           provider: "Waline",
-          serverURL: "blog-comment-faga1.vercel.app"
+          serverURL: "https://blog-comment-theta-six.vercel.app/"
         },
 
         pwa: {
