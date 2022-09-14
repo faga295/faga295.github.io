@@ -3,4 +3,5 @@
 
 npm run docs:build
 cp CNAME docs/
+cp .nojekyll docs/
 git add .
