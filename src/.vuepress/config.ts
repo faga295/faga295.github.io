@@ -14,7 +14,8 @@ export default defineUserConfig({
       ],
       sidebar: {
         '/blog/':[
-          'README.md',
+          'histoire',
+          'vite',
           'remark',
           'react',
           'web_upload_oss',
