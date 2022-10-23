@@ -34,7 +34,7 @@
 </ul>
 <p>局限：</p>
 <p>最重要的是循环引用</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">refProblem</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">refProblem</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     a<span class="token punctuation">.</span>c <span class="token operator">=</span> b<span class="token punctuation">;</span>
@@ -101,7 +101,7 @@
 <p>编译器是根据解释器收集的内容做的优化。这些内容包括哪些呢？</p>
 <p>举个例子：</p>
 <p>js是没有类型的，如果我第一次调用一个add函数，传入的是两个number类型，那么我就收集到了这个函数以后大概率会传入number类型的信息，因此生成machine Code 的时候就不用把把每一个判断数据类型的语句都写上</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>if (isInteger(x) &amp;&amp; isInteger(y)) {    
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>if (isInteger(x) &amp;&amp; isInteger(y)) {    
 	// 整数相加
 } else if (isFloat(x) &amp;&amp; isFloat(y)) {
     // 浮点数相加
@@ -110,7 +110,7 @@ else if (isString(x) &amp;&amp; isString(y)) {
 // 字符串拼接
 } else {    // 各种其他情况}
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>我只需要先写上</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>if (isInteger(x) &amp;&amp; isInteger(y)) {    
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>if (isInteger(x) &amp;&amp; isInteger(y)) {    
 // 整数相加
 } else {    
 	// Deoptimization
@@ -159,7 +159,7 @@ else if (isString(x) &amp;&amp; isString(y)) {
 <p>解析HTML会通过分词器将字节流转换为一个一个token，并且按顺序进出栈。</p>
 <p>如果是<code v-pre>startTag</code>会压入栈，文本节点不压入栈，如果是<code v-pre>endTag</code> HTML解析器会判断栈顶是不是对应的<code v-pre>startTag</code>,如果是，那么出栈，就这样构建出DOM树。</p>
 <h2 id="javascript对dom树构建和渲染的影响" tabindex="-1"><a class="header-anchor" href="#javascript对dom树构建和渲染的影响" aria-hidden="true">#</a> JavaScript对Dom树构建和渲染的影响</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;html>
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;html>
 &lt;body>
 &lt;div>1&lt;/div>
 &lt;script>
@@ -171,7 +171,7 @@ div1.innerText = 'time.geekbang'
 &lt;/html>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/8ecb292b1dacd61f1bc262447f6591ba.png" alt=""></p>
 <p>当DOM树构建过程中遇到了script脚本，那么DOM树构建流程会暂停，因为script脚本可能会对dom进行修改，因此要等待script脚本执行完再接着构建DOM树。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>//foo.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>//foo.js
 let div1 = document.getElementsByTagName('div')[0]
 div1.innerText = 'time.geekbang'
 
@@ -185,11 +185,11 @@ div1.innerText = 'time.geekbang'
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果是引入js文件，那么还需要一个下载的过程，这样就会更加的耗时。</p>
 <p>不过Chorme浏览器做了很多优化，其中一个优化就是当渲染引擎收到字节流之后会开启预解析线程，用于分析HTML文件中包含的 JavaScript、CSS 等相关文件，解析到相关文件之后，预解析线程会提前下载这些文件。</p>
 <p>如果 JavaScript 文件中没有操作 DOM 相关代码，就可以将该 JavaScript 脚本设置为异步加载，通过 async 或 defer 来标记代码。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;script async type="text/javascript" src='foo.js'>&lt;/script>
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;script async type="text/javascript" src='foo.js'>&lt;/script>
 或者
 &lt;script defer type="text/javascript" src='foo.js'>&lt;/script>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>html页面中有css样式</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>//theme.css
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>//theme.css
 div {color:blue}
 
 &lt;html>
@@ -226,7 +226,7 @@ div {color:blue}
 <p>浏览器会把一些可以一起更新的放在队列里，当队列达到阈值后才会触发回流重绘，但是当我们有获取页面信息的操作时，会强制刷新获取最新的页面信息。</p>
 <h3 id="批量修改dom" tabindex="-1"><a class="header-anchor" href="#批量修改dom" aria-hidden="true">#</a> 批量修改dom</h3>
 <p>可以通过将元素脱离文档流（隐藏比较合适），对其进行批量修改，再带回文档流</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function appendDataToElement(appendToElement, data) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function appendDataToElement(appendToElement, data) {
     let li;
     for (let i = 0; i &lt; data.length; i++) {
     	li = document.createElement('li');
@@ -285,20 +285,20 @@ appendDataToElement(ul, data);
 <p><code v-pre>Expires: Wed, 21 Oct 2000 07:28:00 GMT</code></p>
 <p>表示在这个时间之前你都可以直接拿缓存了</p>
 <h4 id="cache-control-http1-1" tabindex="-1"><a class="header-anchor" href="#cache-control-http1-1" aria-hidden="true">#</a> Cache-Control（http1.1）</h4>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>Cache<span class="token operator">-</span>Control<span class="token operator">:</span> max<span class="token operator">-</span>age<span class="token operator">=</span><span class="token number">20000</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>Cache<span class="token operator">-</span>Control<span class="token operator">:</span> max<span class="token operator">-</span>age<span class="token operator">=</span><span class="token number">20000</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>max-age表示在这么多时间内也可以直接拿缓存；还有一个immutable属性就是说以后都可以直接用缓存；还有no-cache：使用缓存前，强制要求把请求提交给服务器进行验证(协商缓存验证)。</p>
 <p>no-store：不存储有关客户端请求或服务器响应的任何内容，即不使用任何缓存。</p>
 <p>max-age的优先级大于Expires</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>app.get('/storage',(req,res)=>{
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>app.get('/storage',(req,res)=>{
       res.setHeader('Cache-control','public,max-age=10')
       res.send()
 })//设置个响应头就可以了
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="协商缓存" tabindex="-1"><a class="header-anchor" href="#协商缓存" aria-hidden="true">#</a> 协商缓存</h3>
 <h4 id="etag-if-none-match" tabindex="-1"><a class="header-anchor" href="#etag-if-none-match" aria-hidden="true">#</a> ETag&amp;If-None-Match</h4>
 <p>ETag放在响应头里告诉客户端此次版本号，客户端拿到了这个ETag和返回值一起存下来，下次请求的时候会使用配套的If-None-Match来判断有无最新版本，如果没有返回304，告诉浏览器直接拿缓存。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token literal-property property">ETag</span><span class="token operator">:</span> <span class="token string">"33a64df551425fcc55e4d42a148795d9f25f89d4"</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>If<span class="token operator">-</span>None<span class="token operator">-</span>Match<span class="token operator">:</span> <span class="token string">"33a64df551425fcc55e4d42a148795d9f25f89d4"</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>fs.readFile(pathname, function (err, data) {
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token literal-property property">ETag</span><span class="token operator">:</span> <span class="token string">"33a64df551425fcc55e4d42a148795d9f25f89d4"</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>If<span class="token operator">-</span>None<span class="token operator">-</span>Match<span class="token operator">:</span> <span class="token string">"33a64df551425fcc55e4d42a148795d9f25f89d4"</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>fs.readFile(pathname, function (err, data) {
     let Etag = `${data.length.toString(16)}${stat.mtime.toString(16)}`//上次修改时间加文件大小
     if((req.headers['if-modified-since'] === stat.mtime.toUTCString()) || (req.headers['if-none-match'] === Etag)) {
       statusCode = 304;
@@ -311,10 +311,10 @@ appendDataToElement(ul, data);
   });
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="last-modified-if-modified-since" tabindex="-1"><a class="header-anchor" href="#last-modified-if-modified-since" aria-hidden="true">#</a> Last-Modified&amp;If-Modified-Since</h4>
 <p>Last-Modified存放上次修改时间，If-Modified-Since放在请求头中，服务器拿到这个头后判断有无最新版本，如果有，就返回304。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>Last<span class="token operator">-</span>Modified<span class="token operator">:</span> Wed<span class="token punctuation">,</span> <span class="token number">21</span> Oct <span class="token number">2000</span> <span class="token number">07</span><span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">00</span> <span class="token constant">GMT</span> 
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>If<span class="token operator">-</span>Modified<span class="token operator">-</span>Since<span class="token operator">:</span> Wed<span class="token punctuation">,</span> <span class="token number">21</span> Oct <span class="token number">2000</span> <span class="token number">07</span><span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">00</span> <span class="token constant">GMT</span> 
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>Last<span class="token operator">-</span>Modified<span class="token operator">:</span> Wed<span class="token punctuation">,</span> <span class="token number">21</span> Oct <span class="token number">2000</span> <span class="token number">07</span><span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">00</span> <span class="token constant">GMT</span> 
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>If<span class="token operator">-</span>Modified<span class="token operator">-</span>Since<span class="token operator">:</span> Wed<span class="token punctuation">,</span> <span class="token number">21</span> Oct <span class="token number">2000</span> <span class="token number">07</span><span class="token operator">:</span><span class="token number">28</span><span class="token operator">:</span><span class="token number">00</span> <span class="token constant">GMT</span> 
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>ETag优先级大于Last-Modified</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// 省略其他代码
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// 省略其他代码
 let stat = fs.statSync(pathname);
   fs.readFile(pathname, function (err, data) {
     // 判断请求头的文件修改时间是否等于服务端的文件修改时间
@@ -361,7 +361,7 @@ let stat = fs.statSync(pathname);
 <p>前面提到，WebSocket复用了HTTP的握手通道。具体指的是，客户端通过HTTP请求与WebSocket服务端协商升级协议。协议升级完成后，后续的数据交换则遵照WebSocket的协议。
 1、客户端：申请协议升级
 首先，客户端发起协议升级请求。可以看到，采用的是标准的HTTP报文格式，且只支持GET方法。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>GET / HTTP/1.1
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>GET / HTTP/1.1
 Host: localhost:8080
 Origin: http://127.0.0.1:3000
 Connection: Upgrade
@@ -375,7 +375,7 @@ Sec-WebSocket-Version: 13：表示websocket的版本。如果服务端不支持�
 Sec-WebSocket-Key：与后面服务端响应首部的Sec-WebSocket-Accept是配套的，提供基本的防护，比如恶意的连接，或者无意的连接。
 2、服务端：响应协议升级
 服务端返回内容如下，状态代码101表示协议切换。到此完成协议升级，后续的数据交互都按照新的协议来。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>HTTP/1.1 101 Switching Protocols
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>HTTP/1.1 101 Switching Protocols
 Connection:Upgrade
 Upgrade: websocket
 Sec-WebSocket-Accept: Oy4NRAQ13jhfONC7bP8dTKb4PTU=
@@ -389,7 +389,7 @@ Sec-WebSocket-Accept: Oy4NRAQ13jhfONC7bP8dTKb4PTU=
 下面给出了WebSocket数据帧的统一格式。熟悉TCP/IP协议的同学对这样的图应该不陌生。</p>
 <p>从左到右，单位是比特。比如FIN、RSV1各占据1比特，opcode占据4比特。
 内容包括了标识、操作代码、掩码、数据、数据长度等。（下一小节会展开）</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code> 0                   1                   2                   3
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code> 0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-------+-+-------------+-------------------------------+
  |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
@@ -455,7 +455,7 @@ WebSocket的每条消息可能被切分成多个数据帧。当WebSocket的接�
 FIN=0，opcode=0x0，表示消息还没发送完成，还有后续的数据帧，当前的数据帧需要接在上一条数据帧之后。
 FIN=1，opcode=0x0，表示消息已经发送完成，没有后续的数据帧，当前的数据帧需要接在上一条数据帧之后。服务端可以将关联的数据帧组装成完整的消息。</p>
 <h2 id="ws的使用" tabindex="-1"><a class="header-anchor" href="#ws的使用" aria-hidden="true">#</a> ws的使用</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var ws = new WebSocket('ws://localhost:8080');//新建websocket实例
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var ws = new WebSocket('ws://localhost:8080');//新建websocket实例
 ws.onopen=function(){
     ws.send('hello')
 }//连接成功后的回调函数
@@ -464,7 +464,7 @@ ws.onmessage()//收到服务器数据后的回调函数
 ws.send()//向服务器发送数据
 ws.close()//关闭连接
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="less" tabindex="-1"><a class="header-anchor" href="#less" aria-hidden="true">#</a> less</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>@color:#999
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>@color:#999
 @mySelector:#wrap//选择器变量
 @borderStyle:border-style//属性变量
 @{mySelector}{//使用时需要使用大括号包裹
@@ -479,7 +479,7 @@ ws.close()//关闭连接
 <p>请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。</p>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/http-request.png" alt="http-request"></p>
 <p>请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>GET /562f25980001b1b106000338.jpg HTTP/1.1
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>GET /562f25980001b1b106000338.jpg HTTP/1.1
 Host    img.mukewang.com//目标地址
 User-Agent    Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36
 Accept    image/webp,image/*,*/*;q=0.8//希望接收的数据
@@ -530,7 +530,7 @@ Accept-Language    zh-CN,zh;q=0.8
 500 Internal Server Error 服务器发生不可预期的错误，导致无法完成客户端的请求。
 503 Service Unavailable 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。
 下面是一个HTTP响应的例子：</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>HTTP/1.1 200 OK
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>HTTP/1.1 200 OK
 
 Server:Apache Tomcat/5.0.12
 Date:Mon,6Oct2003 13:23:42 GMT
@@ -580,7 +580,7 @@ Content-Length:112
 <p>每一个非空的块都以该块包含数据的字节数（字节数以十六进制表示）开始，跟随一个CRLF （回车及换行），然后是数据本身，最后块CRLF结束。在一些实现中，块大小和CRLF之间填充有白空格（0x20）。</p>
 <p>最后一块是单行，由块大小（0），一些可选的填充白空格，以及CRLF。最后一块不再包含任何数据，但是可以发送可选的尾部，包括消息头字段。消息最后以CRLF结尾。</p>
 <p>一个示例响应如下：</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>HTTP/1.1 200 OK
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>HTTP/1.1 200 OK
 Content-Type: text/plain
 Transfer-Encoding: chunked
 
@@ -916,7 +916,7 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis" target="_blank" rel="noopener noreferrer"><code v-pre>flex-basis</code><ExternalLinkIcon/></a> 属性为 <code v-pre>auto</code>。</li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-wrap" target="_blank" rel="noopener noreferrer"><code v-pre>flex-wrap</code><ExternalLinkIcon/></a> 属性为 <code v-pre>nowrap</code>。</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;div class="container">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;div class="container">
         &lt;div style="height: 100px">&lt;/div>
         &lt;div style="min-height: 10px;">&lt;/div>
     &lt;/div>
@@ -949,7 +949,7 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
 4.计算bfc的高度时，浮动元素也参与计算
 5.bfc就是页面上的一个独立容器，容器里面的子元素不会影响外面元素。</p>
 <p><strong>解决外边距折叠</strong></p>
-<div class="language-html ext-html line-numbers-mode"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<div class="language-html line-numbers-mode" data-ext="html"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -963,13 +963,13 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/948888-20171119222632796-1452266331.png" alt="img"></p>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/948888-20171119222701452-741699368.png" alt=""></p>
 <h1 id="清除浮动的几种方法" tabindex="-1"><a class="header-anchor" href="#清除浮动的几种方法" aria-hidden="true">#</a> 清除浮动的几种方法</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;div class="topDiv">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;div class="topDiv">
     &lt;div class="floatDiv">float left&lt;/div>
     &lt;div class="textDiv">...&lt;/div>
 &lt;/div>
 &lt;div class="bottomDiv">...&lt;/div>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>添加clear样式</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>.textDiv {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>.textDiv {
     color: blue;
     border: 2px solid blue;
 
@@ -977,7 +977,7 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>告诉浏览器，其左边不允许有浮动元素存在</p>
 <p><strong>添加一个清除浮动的块级元素</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;div class="topDiv">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;div class="topDiv">
     &lt;div class="textDiv">...&lt;/div>
     &lt;div class="floatDiv">float left&lt;/div>
     &lt;div class="blankDiv">&lt;/div>
@@ -989,7 +989,7 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
     clear: both; // or left
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>:after</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;div class="topDiv clearfix">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;div class="topDiv clearfix">
     &lt;div class="textDiv">...&lt;/div>
     &lt;div class="floatDiv">float left&lt;/div>
 &lt;/div>
@@ -1020,7 +1020,7 @@ flex-basis:给上面两个属性分配多余空间之前, 计算项目是否有�
 macro-task(宏任务)：包括整体代码script，setTimeout，setInterval，dom时间，requestAnimationFrame</p>
 <p>micro-task(微任务)：Promise，process.nextTick（在下一次事件循环开始之前）</p>
 <p>进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务(一个)开始，找到其中一个任务队列执行完毕，再执行所有的微任务。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>console.log('1');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>console.log('1');
 
 setTimeout(function() {
     console.log('2');
@@ -1065,7 +1065,7 @@ setTimeout(function() {
 1.jsonp
 在HTML标签里，一些标签比如script、img这样的获取资源的标签是没有跨域限制的，利用这一点，我们可以这样干：
 在发送请求的时候创建一个script标签，接着把在请求的回调函数中移除这个标签</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code> const script = document.createElement('script')
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code> const script = document.createElement('script')
     // 接口返回的数据获取
     window.jsonpCb = (res) => {
       document.body.removeChild(script)
@@ -1107,7 +1107,7 @@ setTimeout(function() {
 <p><a href="https://cloud.tencent.com/developer/article/1418457" target="_blank" rel="noopener noreferrer">https://cloud.tencent.com/developer/article/1418457<ExternalLinkIcon/></a></p>
 <h1 id="class" tabindex="-1"><a class="header-anchor" href="#class" aria-hidden="true">#</a> Class</h1>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/class1.png" alt="image"></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>class Animal {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>class Animal {
 
   constructor(name) {
     this.speed = 0;
@@ -1151,7 +1151,7 @@ rabbit.run(5); // White Rabbit runs with speed 5.
 rabbit.hide(); // White Rabbit hides!
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="继承的几种方法" tabindex="-1"><a class="header-anchor" href="#继承的几种方法" aria-hidden="true">#</a> 继承的几种方法</h2>
 <p><strong>1.原型链继承</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>  //父类型
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>  //父类型
        function Person(name, age) {
            this.name = name,
            this.age = age,
@@ -1172,12 +1172,12 @@ rabbit.hide(); // White Rabbit hides!
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/3174701-5d19207f790f301f.png" alt=""></p>
 <p>将子类的原型指向父类的实例，子类的实例就可以通过<code v-pre>__proto__</code>访问Student.prototype也就是父类的实例，再通过一次<code v-pre>__protp__</code>就可以得到父类原型上的方法。</p>
 <p>不过由于Student不同实例的原型是同一个Preson实例，因此如果修改实例的引用数据类型将会影响到其他子类实例。</p>
-<div class="language-sqf ext-sqf line-numbers-mode"><pre v-pre class="language-sqf"><code>		s1<span class="token punctuation">.</span>play<span class="token punctuation">.</span>push<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+<div class="language-sqf line-numbers-mode" data-ext="sqf"><pre v-pre class="language-sqf"><code>		s1<span class="token punctuation">.</span>play<span class="token punctuation">.</span>push<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
        	console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span>play<span class="token punctuation">,</span> s2<span class="token punctuation">.</span>play<span class="token punctuation">)</span>
        	console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span>__proto__ <span class="token operator">==</span><span class="token operator">=</span> s2<span class="token punctuation">.</span>__proto__<span class="token punctuation">)</span><span class="token comment">//true</span>
        	console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span>__proto__<span class="token punctuation">.</span>__proto__ <span class="token operator">==</span><span class="token operator">=</span> s2<span class="token punctuation">.</span>__proto__<span class="token punctuation">.</span>__proto__<span class="token punctuation">)</span><span class="token comment">//true</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果修改的不是引用数据类型，将会直接在子类上添加一个新的属性，并不会去原型链上查找这个属性。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>s1.name='2'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>s1.name='2'
 console.log(s1,s2)
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/image-20220223173105008.png" alt="image-20220223173105008"></p>
 <p><strong>特点</strong>：</p>
@@ -1193,7 +1193,7 @@ console.log(s1,s2)
 <li>要想为子类新增属性和方法，必须要在<code v-pre>Student.prototype = new Person()</code> 之后执行，不能放到构造器中</li>
 </ul>
 <p><strong>2.借用构造函数继承</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function Woman(name){
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function Woman(name){
  //继承了People
   People.call(this); //People.call(this，'wangxiaoxia'); 
   this.name = name || 'renbo'
@@ -1218,7 +1218,7 @@ let womanObj = new Woman();
 <li>无法实现函数复用，每个子类都有父类实例函数的副本，影响性能</li>
 </ul>
 <p><strong>3.原型链+借用构造函数的组合继承</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>		function Person(name, age) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>		function Person(name, age) {
             this.name = name,
             this.age = age,
             this.setAge = function () { }
@@ -1252,7 +1252,7 @@ let womanObj = new Woman();
 <li>调用了两次父类构造函数，生成了两份实例</li>
 </ul>
 <p><strong>4.组合继承优化</strong></p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>       <span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>       <span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">,</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">,</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function-variable function">setAge</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
@@ -1271,7 +1271,7 @@ let womanObj = new Woman();
         <span class="token keyword">var</span> s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token string">'Tom'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">15000</span><span class="token punctuation">)</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>不知道实例是子类还是父类实例化</p>
-<div class="language-arcade ext-arcade line-numbers-mode"><pre v-pre class="language-arcade"><code>console.log(s1 instanceof Student, s1 instanceof Person)//true true
+<div class="language-arcade line-numbers-mode" data-ext="arcade"><pre v-pre class="language-arcade"><code>console.log(s1 instanceof Student, s1 instanceof Person)//true true
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><strong>优点</strong>：</p>
 <ul>
 <li>不会初始化两次实例方法/属性，避免的组合继承的缺点</li>
@@ -1281,7 +1281,7 @@ let womanObj = new Woman();
 <li>没办法辨别是实例是子类还是父类创造的，子类和父类的构造函数指向是同一个。</li>
 </ul>
 <p><strong>原型式继承</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function object( o ){
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function object( o ){
    var G = function(){};
    G.prototype = o;
    return new G();
@@ -1294,7 +1294,7 @@ let womanObj = new Woman();
   var obj3 = object( obj );
   console.log( obj3.skills ); //php,javascript,python
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>寄生继承</strong>（在原型式继承的基础上加了一层封装）</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code> var person={
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code> var person={
     name:'ccdida',
     friends:['shelly','Bob']
   }
@@ -1315,7 +1315,7 @@ let womanObj = new Woman();
   console.log(person2.friends)//["shelly", "Bob","shmily"]
   person1.sayHi() //hi
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>5.组合继承优化2(组合寄生继承)</strong></p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">,</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age
         <span class="token punctuation">}</span>
@@ -1334,7 +1334,7 @@ let womanObj = new Woman();
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span>constructor<span class="token punctuation">)</span> <span class="token comment">//Student</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>6.ES6中class的继承</strong></p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
             <span class="token comment">//调用类的构造方法</span>
             <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
@@ -1374,20 +1374,20 @@ let womanObj = new Woman();
 <h1 id="vue底层实现原理" tabindex="-1"><a class="header-anchor" href="#vue底层实现原理" aria-hidden="true">#</a> Vue底层实现原理</h1>
 <h2 id="object-defineproperty" tabindex="-1"><a class="header-anchor" href="#object-defineproperty" aria-hidden="true">#</a> Object.defineProperty</h2>
 <p>Object.defineProperty()的作用就是直接在一个对象上定义一个新属性，或者修改一个已经存在的属性</p>
-<div class="language-css ext-css line-numbers-mode"><pre v-pre class="language-css"><code>Object.<span class="token function">defineProperty</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> prop<span class="token punctuation">,</span> desc<span class="token punctuation">)</span>
+<div class="language-css line-numbers-mode" data-ext="css"><pre v-pre class="language-css"><code>Object.<span class="token function">defineProperty</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> prop<span class="token punctuation">,</span> desc<span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>obj：哪个对象，</p>
 <p>prop：哪个属性，</p>
 <p>desc：属性描述符</p>
 <p>属性描述符有两种</p>
 <p>第一种：数据描述符</p>
-<div class="language-csharp ext-cs line-numbers-mode"><pre v-pre class="language-csharp"><code><span class="token keyword">let</span> Person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<div class="language-csharp line-numbers-mode" data-ext="cs"><pre v-pre class="language-csharp"><code><span class="token keyword">let</span> Person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>Person<span class="token punctuation">,</span> 'name'<span class="token punctuation">,</span> <span class="token punctuation">{</span>
    <span class="token keyword">value</span><span class="token punctuation">:</span> 'jack'<span class="token punctuation">,</span>
    <span class="token named-parameter punctuation">writable</span><span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token comment">// 是否可以改变</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://upload-images.jianshu.io/upload_images/5016475-9cd41a36735b667d.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" alt="img"></p>
 <p>第二种：存取描述符</p>
-<div class="language-jsx ext-jsx line-numbers-mode"><pre v-pre class="language-jsx"><code><span class="token keyword">let</span> Person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<div class="language-jsx line-numbers-mode" data-ext="jsx"><pre v-pre class="language-jsx"><code><span class="token keyword">let</span> Person <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token keyword">let</span> temp <span class="token operator">=</span> <span class="token keyword">null</span>
 Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>Person<span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
   <span class="token function-variable function">get</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1407,13 +1407,13 @@ Object<span class="token punctuation">.</span><span class="token function">defin
 <ul>
 <li>严格模式下无法再意外创建全局变量。</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>"use strict";
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>"use strict";
 // ReferenceError
 mistypedVaraible = 17;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li>严格模式会使引起静默失败的赋值操作抛出异常(给不可写属性赋值，给只读属性赋值，给不可拓展对象的新属性赋值)</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var obj1 = {};
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var obj1 = {};
 Object.defineProperty(obj1, "x", { value: 42, writable: false });
 obj1.x = 9; // 抛出TypeError错误
 // 给只读属性赋值
@@ -1433,7 +1433,7 @@ fixed.newProp = "ohai"; // 抛出TypeError错误
 <li>严格模式禁止八进制数字语法，在 ECMAScript 6 中支持为一个数字加&quot;0o&quot;的前缀来表示八进制数.</li>
 <li>ECMAScript 6 中的严格模式禁止设置 primitive 值的属性（false,数字，字符串...）</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code> "use strict";
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code> "use strict";
 
   false.true = ""; //TypeError
   (14).sailing = "home"; //TypeError
@@ -1442,7 +1442,7 @@ fixed.newProp = "ohai"; // 抛出TypeError错误
 <ul>
 <li>
 <p>严格模式禁用 with</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// with的用处,用来延长作用域链，但是貌似没什么实质性的用处
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// with的用处,用来延长作用域链，但是貌似没什么实质性的用处
 var people={
 	name:'lzc'
 }
@@ -1455,17 +1455,17 @@ yanchang()//'lzc'
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></li>
 <li>
 <p>严格模式下 eval 不再为上层范围引入新变量</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>"use strict"
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>"use strict"
 var x=1
 eval("var x =42")//eval() 函数会将传入的字符串当做 JavaScript 代码进行执行。
 console.log(x);//1
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var x=1
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var x=1
 eval("var x =42")
 console.log(x);//42
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></li>
 <li>
 <p>严格模式禁止删除声明变量</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>"use strict";
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>"use strict";
 
 var x;
 delete x; // !!! 语法错误
@@ -1473,13 +1473,13 @@ delete x; // !!! 语法错误
 <ul>
 <li>严格模式下，参数的值不会随 arguments 对象的值的改变而变化。</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>'use strict'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>'use strict'
 function a(b){
     b=1
     console.log(b,arguments[0]);
 }
 a(2)// 1 2
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function a(b){
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function a(b){
     b=1
     console.log(b,arguments[0]);
 }
@@ -1487,7 +1487,7 @@ a(2)// 1 1
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li>
 <p>不再支持 arguments.callee</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>'use strict'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>'use strict'
 var f = function () {
     return arguments.callee;//它可以用于引用该函数的函数体内当前正在执行的函数
   };
@@ -1503,7 +1503,7 @@ var f = function () {
 </li>
 <li>
 <p>在严格模式中再也不能通过广泛实现的 ECMAScript 扩展“游走于”JavaScript 的栈中。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function restricted() {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function restricted() {
   "use strict";
   restricted.caller; // 抛出类型错误
   restricted.arguments; // 抛出类型错误
@@ -1513,7 +1513,7 @@ var f = function () {
 <p>严格模式下的 arguments 不会再提供访问与调用这个函数相关的变量的途径。</p>
 </li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>"use strict";
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>"use strict";
 function fun(a, b) {
   "use strict";
   var v = 12;
@@ -1529,7 +1529,7 @@ fun(1, 2); // 不会暴露v（或者a，或者b）
 <p>严格模式禁止了不在脚本或者函数层面上的函数声明。</p>
 </li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>"use strict";
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>"use strict";
 if (true) {
   function f() {} // 语法错误
   f();
@@ -1541,25 +1541,25 @@ if (true) {
 <p>除限制可以加载内容的域，服务器还可指明哪种协议允许使用；比如 (从理想化的安全角度来说)，服务器可指定所有内容必须通过HTTPS加载。</p>
 <p>为使CSP可用, 你需要配置你的网络服务器返回  Content-Security-Policy HTTP头部</p>
 <p>除此之外, <meta>元素也可以被用来配置该策略, 例如</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><ul>
 <li>
 <p>只允许加载本站资源</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>Content-Security-Policy:default-src 'self'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>Content-Security-Policy:default-src 'self'
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div></li>
 <li>
 <p>只允许加载 HTTPS 协议图片</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>Content-Security-Policy: img-src https://*
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>Content-Security-Policy: img-src https://*
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div></li>
 <li>
 <p>允许加载任何来源框架</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>Content-Security-Policy: child-src 'none'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>Content-Security-Policy: child-src 'none'
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div></li>
 </ul>
 <h1 id="css" tabindex="-1"><a class="header-anchor" href="#css" aria-hidden="true">#</a> CSS</h1>
 <h2 id="标准盒模型和ie盒模型的区别" tabindex="-1"><a class="header-anchor" href="#标准盒模型和ie盒模型的区别" aria-hidden="true">#</a> 标准盒模型和ie盒模型的区别</h2>
 <p>标准盒模型的的高宽就是内容的高宽，ie盒模型高度和宽度是内容+padding+border的总和</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>box-sizing:content-box;//标准盒模型
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>box-sizing:content-box;//标准盒模型
 box-sizing:border-box;// ie盒模型
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="行内元素的margin和padding" tabindex="-1"><a class="header-anchor" href="#行内元素的margin和padding" aria-hidden="true">#</a> 行内元素的margin和padding</h2>
 <p>水平方向：水平方向上，都有效；</p>
@@ -1567,7 +1567,7 @@ box-sizing:border-box;// ie盒模型
 <p><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/19/167c55be3a1eecdb~tplv-t2oaga2asx-watermark.awebp" alt="image"></p>
 <h2 id="ele-first-child的误解" tabindex="-1"><a class="header-anchor" href="#ele-first-child的误解" aria-hidden="true">#</a> Ele:first-child的误解</h2>
 <p>很多人认为:first-child是Ele元素的第一个子元素。或者是认为选中Ele元素的父元素的第一个Ele元素。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;!--误解一-->
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;!--误解一-->
 &lt;style>
 div:first-child{color: red;}
 &lt;/style>
@@ -1578,7 +1578,7 @@ div:first-child{color: red;}
 &lt;a>一个链接&lt;/a>
 &lt;a>一个链接&lt;/a>
 &lt;/div>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;!--误解二-->
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;!--误解二-->
 &lt;style>
 div a:first-child{color: red;}
 &lt;/style>
@@ -1592,7 +1592,7 @@ div a:first-child{color: red;}
 &lt;/div>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>正确的理解应该是：<strong>只要Ele元素是它的父级的第一个子元素，就选中</strong>。</p>
 <h2 id="单行多行文本省略" tabindex="-1"><a class="header-anchor" href="#单行多行文本省略" aria-hidden="true">#</a> 单行多行文本省略</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>.line{
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>.line{
       display: inline-block;
       width: 50px;
       overflow: hidden;
@@ -1625,7 +1625,7 @@ div a:first-child{color: red;}
 </ul>
 <h2 id="grid" tabindex="-1"><a class="header-anchor" href="#grid" aria-hidden="true">#</a> grid</h2>
 <p><code v-pre>grid-template-columns</code> 属性设置列宽，<code v-pre>grid-template-rows</code> 属性设置行高</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>.wrapper {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>.wrapper {
   display: grid;
   /*  声明了三列，宽度分别为 200px 100px 200px */
   grid-template-columns: 200px 100px 200px;
@@ -1634,14 +1634,14 @@ div a:first-child{color: red;}
   grid-template-rows: 50px 50px;//也可以用repeat(2,50px)
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>autofill</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>.wrapper-2 {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>.wrapper-2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);//不管有几个，只要能放得下就放着元素
   grid-gap: 5px;
   grid-auto-rows: 50px;
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>fr</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>.wrapper-3 {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>.wrapper-3 {
   display: grid;
   grid-template-columns: 200px 1fr 2fr;//网格容器剩余可用空间的一等份
   grid-gap: 5px;
@@ -1658,12 +1658,12 @@ div a:first-child{color: red;}
 <h2 id="transition-animation-transform" tabindex="-1"><a class="header-anchor" href="#transition-animation-transform" aria-hidden="true">#</a> transition animation transform</h2>
 <h3 id="transition" tabindex="-1"><a class="header-anchor" href="#transition" aria-hidden="true">#</a> transition</h3>
 <p>transition指的是过渡，从一个状态到另一个状态的过渡，如果不设置transition就会像平常一样状态时瞬间变化的，transition就是做了一个状态到另一个状态的过渡，可以指定过渡的属性(transition-property)，过渡的时间(transition-duration)，延迟过渡的时间(transition-delay),过渡动画类型(transition-timing-function:linear(线性过渡),ease-in(由慢到快),ease-out(由快到慢),ease-in-out(由慢到快再到慢))</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code> transition: background-color 0.3s ease;//可以和在一起写
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code> transition: background-color 0.3s ease;//可以和在一起写
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="transform" tabindex="-1"><a class="header-anchor" href="#transform" aria-hidden="true">#</a> transform</h3>
 <p><code v-pre>transform</code>就是指的这个东西，拉伸(scale)，倾斜(skew)，旋转(rotate)，偏移 (translate)</p>
 <p>还可以实现3d变化</p>
 <h3 id="animation" tabindex="-1"><a class="header-anchor" href="#animation" aria-hidden="true">#</a> animation</h3>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>@keyframes pulse {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>@keyframes pulse {
   0%, 100% {
     background-color: yellow;
   }
@@ -1715,12 +1715,12 @@ div a:first-child{color: red;}
 <p>Async/Await 是一个自执行的 generate 函数。利用 generate 函数的特性把异步的 代码写成“同步”的形式。</p>
 <h3 id="generator" tabindex="-1"><a class="header-anchor" href="#generator" aria-hidden="true">#</a> Generator</h3>
 <p>Generator 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function* gen(x){
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function* gen(x){
   var y = yield x + 2;
   return y;
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Generator函数不同于其他函数是可以暂停执行的，所以函数名之前要加星号，以示区别。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var g = gen(1);
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var g = gen(1);
 g.next() // { value: 3, done: false }
 g.next() // { value: undefined, done: true }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>上面代码中，调用 Generator 函数，会返回一个内部指针（即遍历器）g 。这是 Generator 函数不同于普通函数的另一个地方，即执行它不会返回结果，返回的是指针对象。调用指针 g 的 next 方法，会移动内部指针（即执行异步任务的第一段），指向第一个遇到的 yield 语句，上例是执行到 x + 2 为止。</p>
@@ -1729,7 +1729,7 @@ g.next() // { value: undefined, done: true }
 <h3 id="数学运算符中的类型转换" tabindex="-1"><a class="header-anchor" href="#数学运算符中的类型转换" aria-hidden="true">#</a> 数学运算符中的类型转换</h3>
 <p><strong>1.减乘除</strong></p>
 <p>对非Number类型运用<code v-pre>- * /</code>时，会先将非Number类型转换为Number类型</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token number">1</span> <span class="token operator">-</span> <span class="token boolean">true</span> <span class="token comment">// 0， 首先把 true 转换为数字 1， 然后执行 1 - 1</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token number">1</span> <span class="token operator">-</span> <span class="token boolean">true</span> <span class="token comment">// 0， 首先把 true 转换为数字 1， 然后执行 1 - 1</span>
 <span class="token number">1</span> <span class="token operator">-</span> <span class="token keyword">null</span> <span class="token comment">// 1,  首先把 null 转换为数字 0， 然后执行 1 - 0</span>
 <span class="token number">1</span> <span class="token operator">*</span> <span class="token keyword">undefined</span> <span class="token comment">//  NaN, undefined 转换为数字是 NaN</span>
 <span class="token number">2</span> <span class="token operator">*</span> <span class="token punctuation">[</span><span class="token string">'5'</span><span class="token punctuation">]</span> <span class="token comment">//  10， ['5']首先会变成 '5', 然后再变成数字 5</span>
@@ -1760,7 +1760,7 @@ g.next() // { value: undefined, done: true }
 <p><code v-pre>Boolean</code> 和其他任何类型比较，<code v-pre>Boolean</code> 首先被转换为 <code v-pre>Number</code> 类型。</p>
 </li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token boolean">true</span> <span class="token operator">==</span> <span class="token number">1</span>  <span class="token comment">// true </span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token boolean">true</span> <span class="token operator">==</span> <span class="token number">1</span>  <span class="token comment">// true </span>
 <span class="token boolean">true</span> <span class="token operator">==</span> <span class="token string">'2'</span>  <span class="token comment">// false, 先把 true 变成 1，而不是把 '2' 变成 true</span>
 <span class="token boolean">true</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">]</span>  <span class="token comment">// true, 先把 true 变成 1， ['1']拆箱成 '1', 再参考规则3</span>
 <span class="token boolean">true</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token string">'2'</span><span class="token punctuation">]</span>  <span class="token comment">// false, 同上</span>
@@ -1769,12 +1769,12 @@ g.next() // { value: undefined, done: true }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li><code v-pre>String</code>和<code v-pre>Number</code>比较，先将<code v-pre>String</code>转换为<code v-pre>Number</code>类型。</li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token number">123</span> <span class="token operator">==</span> <span class="token string">'123'</span> <span class="token comment">// true, '123' 会先变成 123</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token number">123</span> <span class="token operator">==</span> <span class="token string">'123'</span> <span class="token comment">// true, '123' 会先变成 123</span>
 <span class="token string">''</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token comment">// true, '' 会首先变成 0</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li><code v-pre>null == undefined</code>比较结果是<code v-pre>true</code>，除此之外，<code v-pre>null</code>、<code v-pre>undefined</code>和其他任何结果的比较值都为<code v-pre>false</code>。</li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">null</span> <span class="token operator">==</span> <span class="token keyword">undefined</span> <span class="token comment">// true</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">null</span> <span class="token operator">==</span> <span class="token keyword">undefined</span> <span class="token comment">// true</span>
 <span class="token keyword">null</span> <span class="token operator">==</span> <span class="token string">''</span> <span class="token comment">// false</span>
 <span class="token keyword">null</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token comment">// false</span>
 <span class="token keyword">null</span> <span class="token operator">==</span> <span class="token boolean">false</span> <span class="token comment">// false</span>
@@ -1784,12 +1784,12 @@ g.next() // { value: undefined, done: true }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li><code v-pre>原始类型</code>和<code v-pre>引用类型</code>做比较时，引用类型会依照<code v-pre>ToPrimitive</code>规则转换为原始类型。它遵循先<code v-pre>valueOf</code>后<code v-pre>toString</code>的模式期望得到一个原始类型。</li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token string">'[object Object]'</span> <span class="token operator">==</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> 
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token string">'[object Object]'</span> <span class="token operator">==</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> 
 <span class="token comment">// true, 对象和字符串比较，对象通过 toString 得到一个基本类型值</span>
 <span class="token string">'1,2,3'</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span> 
 <span class="token comment">// true, 同上  [1, 2, 3]通过 toString 得到一个基本类型值</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>valueof</code>规则</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// Array：返回数组对象本身
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// Array：返回数组对象本身
 var array = ["ABC", true, 12, -5];
 console.log(array.valueOf() === array);   // true
   11, 59, 230);
@@ -1816,7 +1816,7 @@ console.log( foo.valueOf() === foo );   // true
 var foo2 =  new Function("x", "y", "return x + y;");
 console.log( foo2.valueOf() );
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>toString</code>规则</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>let num = 1
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>let num = 1
 let str = 'a'
 let bool = true
 let obj = {}
@@ -1835,7 +1835,7 @@ console.log(reg.toString())   // '/\d/'
 console.log(arr.toString())   // '1,2,3'
 console.log(fun.toString())   // 'function(){}'
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>toString()</code>也可以判断对象类型，但是我们需要用Object原型上的方法，每个对象都会继承Object，但是由于有些对象会修改<code v-pre>toString()</code>,因此，如果想用<code v-pre>toString()</code>来判断对象类型的话，必须使用原型链上的方法。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var toString = Object.prototype.toString;
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var toString = Object.prototype.toString;
 
 toString.call(new Date); // [object Date]
 toString.call(new String); // [object String]
@@ -1848,14 +1848,14 @@ toString.call(null); // [object Null]
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/2191646980-57a0ac0c57fc5_fix732.webp" alt="2191646980-57a0ac0c57fc5_fix732"></p>
 <h2 id="迭代器" tabindex="-1"><a class="header-anchor" href="#迭代器" aria-hidden="true">#</a> 迭代器</h2>
 <p>迭代器有一个next方法</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>{
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>{
     value: 表示当前的值,
     done: 表示遍历是否结束
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>内部有一个指针，指向数据结构的起始位置。每调用一次next()方法，指针都会向后移动一个位置，直到指向最后一个位置。</p>
 <h3 id="生成器" tabindex="-1"><a class="header-anchor" href="#生成器" aria-hidden="true">#</a> 生成器</h3>
 <p>生成器函数使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*" target="_blank" rel="noopener noreferrer"><code v-pre>function*</code><ExternalLinkIcon/></a>语法编写。 最初调用时，生成器函数不执行任何代码，而是返回一种称为Generator的迭代器。 通过调用生成器的下一个方法消耗值时，Generator函数将执行，直到遇到yield关键字。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function* makeRangeIterator(start = 0, end = Infinity, step = 1) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function* makeRangeIterator(start = 0, end = Infinity, step = 1) {
     for (let i = start; i &lt; end; i += step) {
         yield i;
     }
@@ -1870,7 +1870,7 @@ a.next() // {value: undefined, done: true}
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="可迭代对象" tabindex="-1"><a class="header-anchor" href="#可迭代对象" aria-hidden="true">#</a> 可迭代对象</h3>
 <p>可迭代对象包括数组，Set集合，Map集合和字符串都是可迭代数组</p>
 <h3 id="map" tabindex="-1"><a class="header-anchor" href="#map" aria-hidden="true">#</a> map</h3>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>map.has(key)//是否含有
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>map.has(key)//是否含有
 map.delete(key)
 map.set(key,value)
 map.get(key)
@@ -1890,7 +1890,7 @@ map.keys().next().value//获取第一个键
 </ul>
 <p><code v-pre>Object.entries()</code> 能够将对象转换为entries的数组，由map的另一种创建方式，我们就可以通过<code v-pre>new Map(Obj.entried(obj))</code>的方式将对象转为map。</p>
 <p><code v-pre>Object.fromEntries(iterable)</code> 是<code v-pre>Object.entries</code>的反向操作，因此可以通过这种方式将map转换为对象</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>let map = new Map([
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>let map = new Map([
   ['1',  'str1'],
   [1,    'num1'],
   [true, 'bool1']
@@ -1907,7 +1907,7 @@ Object.fromEntries(map)
 <h2 id="weakmap和weakset" tabindex="-1"><a class="header-anchor" href="#weakmap和weakset" aria-hidden="true">#</a> weakMap和weakSet</h2>
 <h3 id="weakmap" tabindex="-1"><a class="header-anchor" href="#weakmap" aria-hidden="true">#</a> weakMap</h3>
 <p>只能用对象作为key，并且不会对weakMap里的key做引用</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>let john = { name: "John" };
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>let john = { name: "John" };
 
 let weakMap = new WeakMap();
 weakMap.set(john, "...");
@@ -1924,7 +1924,7 @@ john = null; // 覆盖引用
 forEach不能break continue
 for...in的缺点是不仅遍历数字键名，还会遍历手动添加的自定义键，甚至包括原型链上的键。for...in主要还是为遍历对象而设计的，并不太适用于遍历数组。
 Iterator 接口主要供for...of消费。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>for(let v of arr) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>for(let v of arr) {
     console.log(v); // 1 2 3 4
 }
 for(let v of str) {
@@ -1939,7 +1939,7 @@ for(let v of map) {
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="数组" tabindex="-1"><a class="header-anchor" href="#数组" aria-hidden="true">#</a> 数组</h2>
 <p><a href="https://github.com/csjiabin/hexo-theme-next/blob/master/source/_posts/js%E6%95%B0%E7%BB%84%E8%AF%A6%E7%BB%86%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95%E5%8F%8A%E8%A7%A3%E6%9E%90%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">数组详细操作方法及解析<ExternalLinkIcon/></a></p>
 <h1 id="nan" tabindex="-1"><a class="header-anchor" href="#nan" aria-hidden="true">#</a> NAN</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>typeof NaN //number
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>typeof NaN //number
 // NaN和任何值比较==或===都为false，包括NaN
 // 如何判断一个值为NAN Number.isNaN()或isNaN()
 Number.NaN//NaN是Number上的一个静态属性，可以用来得到NaN
@@ -1949,13 +1949,13 @@ Number.NaN//NaN是Number上的一个静态属性，可以用来得到NaN
 <p>数组：Array.from() Array.of() find() findIndex() includes() flat()</p>
 <h1 id="变量提升" tabindex="-1"><a class="header-anchor" href="#变量提升" aria-hidden="true">#</a> 变量提升</h1>
 <p>变量提升实际上是在编译阶段会将函数和变量放到Lexical Environment(词法环境)这么个数据结构中</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>sayHi() // Hi there!
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>sayHi() // Hi there!
 
 function sayHi() {
     console.log('Hi there!')
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在执行到sayHi时会去看此法环境中找这个函数并执行他。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>console.log(name)   // 'undefined'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>console.log(name)   // 'undefined'
 var name = 'John Doe'
 console.log(name)   // John Doe
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>但是变量为什么没有呢？那么是因为编译阶段时碰到var就会在词法环境中存一个undefined，在执行到var语句的时候会给变量附上值</p>
@@ -1963,7 +1963,7 @@ console.log(name)   // John Doe
 <h1 id="执行上下文" tabindex="-1"><a class="header-anchor" href="#执行上下文" aria-hidden="true">#</a> 执行上下文</h1>
 <p>在函数执行时会将函数的执行上下文压入执行上下文栈，在函数执行结束会出栈，最开始的是一个全局执行上下文，全局执行上下文只有在应用程序执行完毕之后才会清除。</p>
 <p>首先看下执行上下文是由什么组成的吧。(变量对象，作用域链，this)</p>
-<div class="language-dts ext-dts line-numbers-mode"><pre v-pre class="language-dts"><code>checkscopeContext = {
+<div class="language-dts line-numbers-mode" data-ext="dts"><pre v-pre class="language-dts"><code>checkscopeContext = {
     AO: {
         arguments: {
             length: 0
@@ -1974,7 +1974,7 @@ console.log(name)   // John Doe
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>AO</code>表示变量对象，scope是作用域链，scope的顶端是自己的变量对象，函数在使用变量的时候会按照作用域链来一层一层查找。</p>
 <p>js作用域是在定义的时候确定的,作用域确定了使用变量的权限或者说是查找变量的途径</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>var a = 1
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>var a = 1
 function out(){
     var a = 2
     inner()
@@ -1983,7 +1983,7 @@ function inner(){
     console.log(a)
 }
 out()  //====>  1
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-stylus ext-styl line-numbers-mode"><pre v-pre class="language-stylus"><code><span class="token property-declaration"><span class="token property">var</span> a <span class="token operator">=</span> <span class="token number">1</span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-stylus line-numbers-mode" data-ext="styl"><pre v-pre class="language-stylus"><code><span class="token property-declaration"><span class="token property">var</span> a <span class="token operator">=</span> <span class="token number">1</span></span>
 function <span class="token func"><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span></span>
     <span class="token property-declaration"><span class="token property">var</span> a <span class="token operator">=</span> <span class="token number">2</span></span>
     <span class="token func"><span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
@@ -1998,7 +1998,7 @@ function <span class="token func"><span class="token function">out</span><span c
 <h2 id="this指向" tabindex="-1"><a class="header-anchor" href="#this指向" aria-hidden="true">#</a> this指向</h2>
 <h2 id="for循环中let和var的区别" tabindex="-1"><a class="header-anchor" href="#for循环中let和var的区别" aria-hidden="true">#</a> for循环中let和var的区别</h2>
 <p>在es6中新增了一个块级作用域，在es6之前，在while，if这些语句中使用var都是会声明在全局作用域或者函数作用域中，let和const就可以在while，if中声明一个变量，并且有一个块级作用域。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>for(var i=0;i&lt;10;i++){
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>for(var i=0;i&lt;10;i++){
     setTimeout(()=>{
         console.log(i + "随机数" + Math.random())
     },0)
@@ -2021,7 +2021,7 @@ for(let i=0;i&lt;10;i++){
 <p>3.hash值改变不会向后端发送请求, 完全属于前端路由</p>
 <p>缺点：</p>
 <p>hash值前面加#号，不符合url规范，不美观，不能使用锚点</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;script type="text/javascript">
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;script type="text/javascript">
     // 第一次加载的时候，不会执行 hashchange 监听事件，默认执行一次
     // DOMContentLoaded 为浏览器 DOM 加载完成时触发
     window.addEventListener('DOMContentLoaded', Load)
@@ -2074,7 +2074,7 @@ for(let i=0;i&lt;10;i++){
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/bg2016011503.png" alt="bg2016011503"></p>
 <h1 id="bigint" tabindex="-1"><a class="header-anchor" href="#bigint" aria-hidden="true">#</a> BigInt</h1>
 <p><strong><code v-pre>BigInt</code></strong> 是一种内置对象，它提供了一种方法来表示大于 <code v-pre>2^53 - 1</code> 的整数。这原本是 Javascript中可以用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="noopener noreferrer"><code v-pre>Number</code><ExternalLinkIcon/></a> 表示的最大数字。<strong><code v-pre>BigInt</code></strong> 可以表示任意大的整数。可以通过在数字后面加n或者调用函数BigInt来定义大数</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const theBiggestInt = 9007199254740991n;
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const theBiggestInt = 9007199254740991n;
 
 const alsoHuge = BigInt(9007199254740991);
 // ↪ 9007199254740991n
@@ -2082,7 +2082,7 @@ const alsoHuge = BigInt(9007199254740991);
 const hugeString = BigInt("9007199254740991");
 // ↪ 9007199254740991n
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>不能使用Math中的方法，在和Number类型进行计算时需要转换为同一种数据类型，在BigInt转换为Number可能会丢失精度</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>typeof 1n === 'bigint'; // true
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>typeof 1n === 'bigint'; // true
 typeof BigInt('1') === 'bigint'; // true
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>/</code> 操作符对于整数的运算也没问题。可是因为这些变量是 <code v-pre>BigInt</code> 而不是 <code v-pre>BigDecimal</code> ，该操作符结果会向零取整，也就是说不会返回小数部分。</p>
 <p><code v-pre>BigInt</code> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number" target="_blank" rel="noopener noreferrer"><code v-pre>Number</code><ExternalLinkIcon/></a> 不是严格相等的，但是宽松相等的。</p>

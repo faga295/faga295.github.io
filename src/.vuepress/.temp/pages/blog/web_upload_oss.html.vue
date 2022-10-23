@@ -49,7 +49,7 @@ RAM服务会对每个访问的请求进行身份验证，所以无论使用HTTP�
 <p>创建RAM用户和角色具体操作：<a href="https://help.aliyun.com/document_detail/100624.htm#concept-xzh-nzk-2gb" target="_blank" rel="noopener noreferrer">使用STS临时访问凭证访问OSS<ExternalLinkIcon/></a></p>
 <p>在创建角色的时候记得添加访问oss的权限。</p>
 <h4 id="nodejs的实现" tabindex="-1"><a class="header-anchor" href="#nodejs的实现" aria-hidden="true">#</a> nodejs的实现</h4>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const Core = require('@alicloud/pop-core');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const Core = require('@alicloud/pop-core');
 
 var client = new Core({
   accessKeyId: '&lt;your RAM accessKeyId>',//用户AccessKeyId
@@ -85,13 +85,13 @@ exports.getSts = (res)=>{
 
 
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="前端篇" tabindex="-1"><a class="header-anchor" href="#前端篇" aria-hidden="true">#</a> 前端篇</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>export async function getSecurityToken (){
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>export async function getSecurityToken (){
 	const {data} = await axios.get(`${baseURL}/securityToken`)
 	if(data.code===20000){
 		return data.data;
 	}
 }
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>import OSS from 'ali-oss'
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>import OSS from 'ali-oss'
 import {getSecurityToken} from '../request.js'
 
 export async function putObject(id,file){

@@ -29,7 +29,7 @@
 <li>Renderer（渲染器）—— 负责将变化的组件渲染到页面上</li>
 </ul>
 <p>React16架构是在React15架构上增加了一个Scheduler，Scheduler做的事情就是当浏览器有时间的时候通知我们，因此在协调器里面代码改为了</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function workLoopConcurrent() {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function workLoopConcurrent() {
   // Perform work until Scheduler asks us to yield
   while (workInProgress !== null &amp;&amp; !shouldYield()) {
     workInProgress = performUnitOfWork(workInProgress);
@@ -37,7 +37,7 @@
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>通过浏览器是否有时间来判断是否应该终端递归</p>
 <p>在React15中Reconciler与Renderer是交替工作的，检查到某个节点更新了就会交给Renderer渲染，在React16中，<strong>Reconciler</strong>与<strong>Renderer</strong>不再是交替工作。当<strong>Scheduler</strong>将任务交给<strong>Reconciler</strong>后，<strong>Reconciler</strong>会为变化的虚拟DOM打上代表增/删/更新的标记，类似这样：</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">const</span> Placement <span class="token operator">=</span> <span class="token comment">/*             */</span> <span class="token number">0b0000000000010</span><span class="token punctuation">;</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">const</span> Placement <span class="token operator">=</span> <span class="token comment">/*             */</span> <span class="token number">0b0000000000010</span><span class="token punctuation">;</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> Update <span class="token operator">=</span> <span class="token comment">/*                */</span> <span class="token number">0b0000000000100</span><span class="token punctuation">;</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> PlacementAndUpdate <span class="token operator">=</span> <span class="token comment">/*    */</span> <span class="token number">0b0000000000110</span><span class="token punctuation">;</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> Deletion <span class="token operator">=</span> <span class="token comment">/*    
@@ -45,7 +45,7 @@
 <h2 id="fiber结构" tabindex="-1"><a class="header-anchor" href="#fiber结构" aria-hidden="true">#</a> Fiber结构</h2>
 <p>在<code v-pre>React15</code>及以前，<code v-pre>Reconciler</code>采用递归的方式创建虚拟DOM，递归过程是不能中断的。如果组件树的层级很深，递归会占用线程很多时间，造成卡顿。</p>
 <p>为了解决这个问题，<code v-pre>React16</code>将<strong>递归的无法中断的更新</strong>重构为<strong>异步的可中断更新</strong>，由于曾经用于递归的<strong>虚拟DOM</strong>数据结构已经无法满足需要。于是，全新的<code v-pre>Fiber</code>架构应运而生。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">FiberNode</span><span class="token punctuation">(</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">FiberNode</span><span class="token punctuation">(</span>
   <span class="token parameter"><span class="token literal-property property">tag</span><span class="token operator">:</span> WorkTag<span class="token punctuation">,</span>
   <span class="token literal-property property">pendingProps</span><span class="token operator">:</span> mixed<span class="token punctuation">,</span>
   <span class="token literal-property property">key</span><span class="token operator">:</span> <span class="token keyword">null</span> <span class="token operator">|</span> string<span class="token punctuation">,</span>
@@ -90,7 +90,7 @@
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="fiber双缓存" tabindex="-1"><a class="header-anchor" href="#fiber双缓存" aria-hidden="true">#</a> Fiber双缓存</h3>
 <p>在React中最多会同时存在两颗<code v-pre>Fiber树</code>。当前屏幕上显示内容对应的<code v-pre>Fiber树</code>称为<code v-pre>current Fiber树</code>，正在内存中构建的<code v-pre>Fiber树</code>称为<code v-pre>workInProgress Fiber树,他们通过</code>alternate`属性连接。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>currentFiber<span class="token punctuation">.</span>alternate <span class="token operator">===</span> workInProgressFiber<span class="token punctuation">;</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>currentFiber<span class="token punctuation">.</span>alternate <span class="token operator">===</span> workInProgressFiber<span class="token punctuation">;</span>
 workInProgressFiber<span class="token punctuation">.</span>alternate <span class="token operator">===</span> currentFiber<span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>当<code v-pre>workInProgress Fiber树</code>构建完成交给<code v-pre>Renderer</code>渲染在页面上后，应用根节点的<code v-pre>current</code>指针指向<code v-pre>workInProgress Fiber树</code>，此时<code v-pre>workInProgress Fiber树</code>就变为<code v-pre>current Fiber树</code>。</p>
 <p>每次状态更新都会产生新的<code v-pre>workInProgress Fiber树</code>，通过<code v-pre>current</code>与<code v-pre>workInProgress</code>的替换，完成<code v-pre>DOM</code>更新。</p>
@@ -99,7 +99,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <p>一个应用中只有一个fiberRoot，但可以有多个rootFiber，rootFiber是通过ReactDom.render创建的</p>
 <h2 id="深入理解jsx" tabindex="-1"><a class="header-anchor" href="#深入理解jsx" aria-hidden="true">#</a> 深入理解jsx</h2>
 <p><code v-pre>JSX</code>在编译时会被<code v-pre>Babel</code>编译为<code v-pre>React.createElement</code>方法。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> config<span class="token punctuation">,</span> children</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> config<span class="token punctuation">,</span> children</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> propName<span class="token punctuation">;</span>
 
   <span class="token keyword">const</span> props <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -159,7 +159,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <h2 id="render阶段" tabindex="-1"><a class="header-anchor" href="#render阶段" aria-hidden="true">#</a> Render阶段</h2>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/20210529105753.png" alt="react源码8.1"></p>
 <p><code v-pre>render阶段</code> 的入口函数是<code v-pre>performSyncWorkOnRoot</code>或<code v-pre>performConcurrentWorkOnRoot</code> 这取决于同步更新还是异步更新。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// performSyncWorkOnRoot会调用该方法</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token comment">// performSyncWorkOnRoot会调用该方法</span>
 <span class="token keyword">function</span> <span class="token function">workLoopSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">while</span> <span class="token punctuation">(</span>workInProgress <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token function">performUnitOfWork</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -189,7 +189,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <li><code v-pre>update</code>时：如果<code v-pre>current</code>存在，在满足一定条件时可以复用<code v-pre>current</code>节点，这样就能克隆<code v-pre>current.child</code>作为<code v-pre>workInProgress.child</code>，而不需要新建<code v-pre>workInProgress.child</code>。如果不能复用就进入到reconcileChildren，通过diff算法生成带effectTag的子Fiber节点</li>
 <li><code v-pre>mount</code>时：除<code v-pre>fiberRootNode</code>以外，<code v-pre>current === null</code>。会根据<code v-pre>fiber.tag</code>不同，创建不同类型的<code v-pre>子Fiber节点</code>。mount会直接进入到reconcileChildren函数，并且生成其子节点。</li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">beginWork</span><span class="token punctuation">(</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">beginWork</span><span class="token punctuation">(</span>
   <span class="token parameter"><span class="token literal-property property">current</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
   <span class="token literal-property property">workInProgress</span><span class="token operator">:</span> Fiber<span class="token punctuation">,</span>
   <span class="token literal-property property">renderLanes</span><span class="token operator">:</span> Lanes</span>
@@ -246,7 +246,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <p>开始遍历newChildren，如果oldFiber在lastPlaceIndex右边，则代表他对顺序没有影响,则更新lastPlaceIndex = max(index,lastPlaceIndex)，接着删除map中的节点,如果oldFiber的index&lt;lastPlaceIndex,那么认为它是需要移动的，把它移动到最右端，删除map中的节点。如果遍历完成之后，existingChildren中还有节点，那么就直接删除，同样，如果有新的节点（existingChildren中没有的）那么就会新增这个节点。</p>
 <h4 id="effecttag" tabindex="-1"><a class="header-anchor" href="#effecttag" aria-hidden="true">#</a> effectTag</h4>
 <p><code v-pre>effectTag</code>是Fiber的一个属性，记录了commit阶段需要对其进行的操作。</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// DOM需要插入到页面中</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token comment">// DOM需要插入到页面中</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> Placement <span class="token operator">=</span> <span class="token comment">/*                */</span> <span class="token number">0b00000000000010</span><span class="token punctuation">;</span>
 <span class="token comment">// DOM需要更新</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> Update <span class="token operator">=</span> <span class="token comment">/*                   */</span> <span class="token number">0b00000000000100</span><span class="token punctuation">;</span>
@@ -265,7 +265,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <li>处理<code v-pre>DANGEROUSLY_SET_INNER_HTML prop</code></li>
 <li>处理<code v-pre>children prop</code></li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> workInProgress<span class="token punctuation">.</span>stateNode <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> workInProgress<span class="token punctuation">.</span>stateNode <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment">// update的情况</span>
   <span class="token function">updateHostComponent</span><span class="token punctuation">(</span>
     current<span class="token punctuation">,</span>
@@ -276,7 +276,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>被处理完的props会被赋值给<code v-pre>workInProgress.updateQueue</code>,并最终会在commit阶段被渲染在页面上。</p>
-<div class="language-typescript ext-ts line-numbers-mode"><pre v-pre class="language-typescript"><code>workInProgress<span class="token punctuation">.</span>updateQueue <span class="token operator">=</span> <span class="token punctuation">(</span>updatePayload<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<div class="language-typescript line-numbers-mode" data-ext="ts"><pre v-pre class="language-typescript"><code>workInProgress<span class="token punctuation">.</span>updateQueue <span class="token operator">=</span> <span class="token punctuation">(</span>updatePayload<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><code v-pre>updatePayload</code>为数组形式，偶数记录了props的key，奇数记录了props的value</p>
 <h4 id="mount" tabindex="-1"><a class="header-anchor" href="#mount" aria-hidden="true">#</a> mount</h4>
 <p>同样，我们省略了不相关的逻辑。可以看到，<code v-pre>mount</code>时的主要逻辑包括三个：</p>
@@ -285,7 +285,7 @@ workInProgressFiber<span class="token punctuation">.</span>alternate <span class
 <li>将子孙<code v-pre>DOM节点</code>插入刚生成的<code v-pre>DOM节点</code>中</li>
 <li>与<code v-pre>update</code>逻辑中的<code v-pre>updateHostComponent</code>类似的处理<code v-pre>props</code>的过程</li>
 </ul>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> currentHostContext <span class="token operator">=</span> <span class="token function">getHostContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> currentHostContext <span class="token operator">=</span> <span class="token function">getHostContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// 为fiber创建对应DOM节点</span>
 <span class="token keyword">const</span> instance <span class="token operator">=</span> <span class="token function">createInstance</span><span class="token punctuation">(</span>
     type<span class="token punctuation">,</span>
@@ -372,7 +372,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <p>每次我们使用事件对象，在函数执行后会通过releaseTopLevelCallbackBookKeeping将事件对象释放到事件池中，这样的好处就是	不用每次都创建事件对象，可以从事件池中取出一个事件源对象进行复用，在事件处理函数执行完毕后,会释放事件对象到事件池中，清空属性，这就是<code v-pre>setTimeout</code>中打印为什么是<code v-pre>null</code>的原因了。</p>
 <h2 id="事件注册" tabindex="-1"><a class="header-anchor" href="#事件注册" aria-hidden="true">#</a> 事件注册</h2>
 <p>在源码中提到过，render阶段的<code v-pre>completeWork</code>会对Fiber节点的props进行处理,这里就包括了对事件的处理</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">setInitialDOMProperties</span><span class="token punctuation">(</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">setInitialDOMProperties</span><span class="token punctuation">(</span>
   <span class="token parameter"><span class="token literal-property property">tag</span><span class="token operator">:</span> string<span class="token punctuation">,</span>
   <span class="token literal-property property">domElement</span><span class="token operator">:</span> Element<span class="token punctuation">,</span>
   <span class="token literal-property property">rootContainerElement</span><span class="token operator">:</span> Element <span class="token operator">|</span> Document<span class="token punctuation">,</span>
@@ -393,7 +393,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <p>registrationNameDependencies是一个对象，用来判断该props是否为一个事件。</p>
 </blockquote>
 <p><code v-pre>ensureListerningTo()</code>函数来执行事件绑定，他会通过事件名称创建不同的优先级Listener（root上绑定的就是这个带有优先级的监听器），还会根据名称判断是在捕获还是冒泡阶段触发</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>  <span class="token comment">// 根据事件名称，创建不同优先级的事件监听器。</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>  <span class="token comment">// 根据事件名称，创建不同优先级的事件监听器。</span>
   <span class="token keyword">let</span> listener <span class="token operator">=</span> <span class="token function">createEventListenerWrapperWithPriority</span><span class="token punctuation">(</span>
     targetContainer<span class="token punctuation">,</span>
     domEventName<span class="token punctuation">,</span>
@@ -420,7 +420,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
   <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="事件触发" tabindex="-1"><a class="header-anchor" href="#事件触发" aria-hidden="true">#</a> 事件触发</h2>
 <p>事件触发的流程：首先是对事件对象的合成</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code>  <span class="token comment">// 构造合成事件对象</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code>  <span class="token comment">// 构造合成事件对象</span>
   <span class="token keyword">const</span> event <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SyntheticEvent</span><span class="token punctuation">(</span>
     reactName<span class="token punctuation">,</span>
     <span class="token keyword">null</span><span class="token punctuation">,</span>
@@ -430,7 +430,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>原生事件只是合成事件的一个属性，它还包括更多的属性，但说白了这和就是用来描述这个事件的，比如说位置啊，组件名啊啥的。<strong>事件对象合成</strong>完毕之后，会从触发该事件的节点一直往上，判断是否有绑定这个事件，如果有那就把它的事件处理函数收集起来push进一个数组（<strong>执行路径</strong>）中，<strong>事件执行</strong>时这些事件处理函数会共用这同一个合成事件，并且改变其currentTarget，以及阻止其冒泡。</p>
 <p>当我们点击了一个按钮，listener就调用了<code v-pre>dispatchEventsForPlugins</code>函数</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">dispatchEventsForPlugins</span><span class="token punctuation">(</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">dispatchEventsForPlugins</span><span class="token punctuation">(</span>
   <span class="token parameter"><span class="token literal-property property">domEventName</span><span class="token operator">:</span> DOMEventName<span class="token punctuation">,</span>
   <span class="token literal-property property">eventSystemFlags</span><span class="token operator">:</span> EventSystemFlags<span class="token punctuation">,</span>
   <span class="token literal-property property">nativeEvent</span><span class="token operator">:</span> AnyNativeEvent<span class="token punctuation">,</span>
@@ -458,7 +458,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <p><code v-pre>dispatchQueue</code>，它承载了本次合成的事件对象和收集到事件执行路径上的事件处理函数。</p>
 <p><code v-pre>extractEvents()</code>做了两件事：构造合成事件以及收集事件路径上的事件处理函数</p>
 <p><code v-pre>accumulateSinglePhaseListeners</code>用来事件收集</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">accumulateSinglePhaseListeners</span><span class="token punctuation">(</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">accumulateSinglePhaseListeners</span><span class="token punctuation">(</span>
   <span class="token parameter"><span class="token literal-property property">targetFiber</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
   <span class="token literal-property property">dispatchQueue</span><span class="token operator">:</span> DispatchQueue<span class="token punctuation">,</span>
   <span class="token literal-property property">event</span><span class="token operator">:</span> ReactSyntheticEvent<span class="token punctuation">,</span>
@@ -513,7 +513,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>dispatchQueue的机构：</p>
-<div class="language-dts ext-dts line-numbers-mode"><pre v-pre class="language-dts"><code>[
+<div class="language-dts line-numbers-mode" data-ext="dts"><pre v-pre class="language-dts"><code>[
   {
     event: SyntheticEvent,
     listeners: [ listener1, listener2, ... ]
@@ -526,7 +526,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <p>函数式组件的本质只是一个函数而已，只是经过react的封装，让他能够渲染成dom，因此每次更新和创建组件都是执行一次该函数，所以对hooks更应该从执行函数的角度来理解。函数式组件应该是一个纯函数。</p>
 <h1 id="useeffect" tabindex="-1"><a class="header-anchor" href="#useeffect" aria-hidden="true">#</a> useEffect</h1>
 <p>先提供一段简单的useEffect的代码</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 
 <span class="token comment">// 该组件定时从服务器获取好友的在线状态</span>
 <span class="token keyword">function</span> <span class="token function">FriendStatus</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -567,7 +567,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <h4 id="hooks链表" tabindex="-1"><a class="header-anchor" href="#hooks链表" aria-hidden="true">#</a> hooks链表</h4>
 <p>当函数组件进入render阶段时，会被<code v-pre>renderWithHooks</code>函数处理。函数组件作为一个函数，它的渲染其实就是函数调用，而函数组件又会调用React提供的hooks函数。初始挂载和更新时，所用的hooks函数是不同的，比如初次挂载时调用的<code v-pre>useEffect</code>，和后续更新时调用的<code v-pre>useEffect</code>，虽然都是同一个hook，但是因为在两个不同的渲染过程中调用它们，所以本质上他们两个是不一样的。这种不一样来源于函数组件要维护一个hooks的链表，初次挂载时要创建链表，后续更新的时候要更新链表。</p>
 <p>每次函数组件调用hooks函数的时候，都会生成一个hook对象</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// hook对象</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token comment">// hook对象</span>
 <span class="token punctuation">{</span>
     <span class="token literal-property property">baseQueue</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
     <span class="token literal-property property">baseState</span><span class="token operator">:</span> <span class="token string">'hook1'</span><span class="token punctuation">,</span>
@@ -586,7 +586,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <p>更新时，这时已经有了一个current 树，因此我们可以通过workInProgress.alternate,获取到current节点，再拿到memoizedState上的hooks链表，这样就可以获取到之前创建的hook对象，新的hook对象可以根据它来构建，还可以获得一些信息，比如useEffect的依赖项。</p>
 <h4 id="effect数据结构" tabindex="-1"><a class="header-anchor" href="#effect数据结构" aria-hidden="true">#</a> Effect数据结构</h4>
 <p>use(Layout)Effect会在调用后会创建一个effect对象，存储到hook.memorizedState上，不同的hooks函数放在memorizedState上的值是不同的</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> <span class="token function-variable function">UseEffectExp</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> <span class="token function-variable function">UseEffectExp</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">const</span> <span class="token punctuation">[</span> text<span class="token punctuation">,</span> setText <span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span>
     <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
         console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'effect1'</span><span class="token punctuation">)</span>
@@ -612,7 +612,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <li>next: 指向下一个effect</li>
 <li>tag: effect的类型，区分是useEffect还是useLayoutEffect，以及是否需要更新</li>
 </ul>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>fiber.memoizedState ---> useState hook
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>fiber.memoizedState ---> useState hook
                              |
                              |
                             next
@@ -650,7 +650,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <h1 id="usememo和usecallback" tabindex="-1"><a class="header-anchor" href="#usememo和usecallback" aria-hidden="true">#</a> useMemo和useCallback</h1>
 <p>useMemo和useCallback都是用来缓存的，由于每次状态改变都会重新执行一次App函数，但如果修改的状态和我们想要传递的值无关，我们就希望将其缓存起来</p>
 <p>useCallback</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useMemo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token string">"./styles.css"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -692,7 +692,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>useMemo</p>
-<div class="language-jsx ext-jsx line-numbers-mode"><pre v-pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useCallback<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+<div class="language-jsx line-numbers-mode" data-ext="jsx"><pre v-pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useCallback<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token string">"./styles.css"</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -739,7 +739,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="useref" tabindex="-1"><a class="header-anchor" href="#useref" aria-hidden="true">#</a> useRef</h1>
 <p>我们点击按钮让stateNumber和numRef都加1</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function incrementAndDelayLogging() {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function incrementAndDelayLogging() {
 		  // 点击按钮 stateNumber + 1
         setStateNumber(stateNumber + 1)
 		  // 同时 ref 对象的 current 属性值也 + 1
@@ -752,13 +752,13 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
  }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>useRef就是一个容器，它可以放dom节点,也可以放数据，在用来放数据的时候主要是用来获取由于异步操作加闭包造成的渲染不及时的问题，并且修改ref不会造成组件重新render。</p>
 <h1 id="react-memo" tabindex="-1"><a class="header-anchor" href="#react-memo" aria-hidden="true">#</a> React.memo</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const MyComponent = React.memo(function MyComponent(props) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const MyComponent = React.memo(function MyComponent(props) {
   /* 使用 props 渲染 */
 });
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果组件在传入props相同情况下返回的是相同的，那么我们可以使用就React.memo。</p>
 <p>React.memo和useCallback一定要搭配使用，缺少了一个可能会导致性能不降反升。</p>
 <h1 id="usereducer" tabindex="-1"><a class="header-anchor" href="#usereducer" aria-hidden="true">#</a> useReducer</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const DemoUseReducer = ()=>{
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const DemoUseReducer = ()=>{
     /* number为更新后的state值,  dispatchNumbner 为当前的派发函数 */
    const [ number , dispatchNumbner ] = useReducer((state,action)=>{
        const { payload , name  } = action
@@ -786,7 +786,7 @@ workInProgress<span class="token punctuation">.</span>stateNode <span class="tok
 
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>useReducer会返回一个数组，数组的第一个是状态，第二个是dispatch，需要给useReducer传入一个回调函数，回调函数第一个是state，第二个是dispatch传入的数据，回调函数的返回值是新state</p>
 <h1 id="usecontext" tabindex="-1"><a class="header-anchor" href="#usecontext" aria-hidden="true">#</a> useContext</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>import React, { createContext, useContext, useReducer, useState } from 'react'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>import React, { createContext, useContext, useReducer, useState } from 'react'
 import ReactDOM from 'react-dom'
 
 // 创造一个上下文
@@ -830,7 +830,7 @@ ReactDOM.render(&lt;App />,document.getElementById('root'));
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="usestate" tabindex="-1"><a class="header-anchor" href="#usestate" aria-hidden="true">#</a> useState</h1>
 <p>useState可以传入函数，其初始state是函数执行的返回值</p>
 <h1 id="react-activation" tabindex="-1"><a class="header-anchor" href="#react-activation" aria-hidden="true">#</a> react-activation</h1>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>import React, { Component, createContext } from 'react'
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>import React, { Component, createContext } from 'react'
 
 const { Provider, Consumer } = createContext()
 const withScope = WrappedComponent => props => (
@@ -904,7 +904,7 @@ export default KeepAlive
 <p>过去，组件内的 JavaScript 错误会导致 React 的内部状态被破坏，并且在下一次渲染时产生可能无法追踪的错误。</p>
 <p>部分 UI 的 JavaScript 错误不应该导致整个应用崩溃，为了解决这个问题，React 16 引入了一个新的概念 —— 错误边界。</p>
 <p>相当于js的catch 但他是一个组件，如果一个class组件定义了getDerivedStateFromError()或componentDidCatch()生命周期，那么它就会被认定为是一个错误边界。当抛出错误后，请使用 <code v-pre>static getDerivedStateFromError()</code> 渲染备用 UI ，使用 <code v-pre>componentDidCatch()</code> 打印错误信息。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>class ErrorBoundary extends React.Component {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -930,7 +930,7 @@ export default KeepAlive
   }
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>然后你可以将它作为一个常规组件去使用：</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>&lt;ErrorBoundary>
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>&lt;ErrorBoundary>
   &lt;MyWidget />
 &lt;/ErrorBoundary>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>

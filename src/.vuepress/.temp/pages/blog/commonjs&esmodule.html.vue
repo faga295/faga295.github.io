@@ -7,7 +7,7 @@
 </ul>
 <h1 id="commonjs具体实现" tabindex="-1"><a class="header-anchor" href="#commonjs具体实现" aria-hidden="true">#</a> commonjs具体实现</h1>
 <p>先看一个例子</p>
-<div class="language-javascript ext-js line-numbers-mode"><pre v-pre class="language-javascript"><code><span class="token comment">// a.js</span>
+<div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token comment">// a.js</span>
 <span class="token keyword">let</span> val <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">setVal</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">newVal</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -29,7 +29,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 1</span>
 
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>我们可以这样子理解：</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const myModule = {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const myModule = {
   exports: {}
 }
 
@@ -55,7 +55,7 @@ console.log(useVal);
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这里我们就可以理解什么叫值的拷贝了</p>
 <p>我们的val和模块里的val是不一样的所以使用setVal修改没有效果</p>
 <p>在es module中就不是输出对象的拷贝了，而是值的引用</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// a.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// a.js
 import { foo } from './b';
 console.log(foo);
 setTimeout(() => {
@@ -77,17 +77,17 @@ setTimeout(() => {
 // 2
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>知道了module大概是个什么东西之后，我们来看看commonjs的具体实现</p>
 <p>首先我们定义一个自己的module，每个文件都有一个module对象</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function MyModule(id = '') {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function MyModule(id = '') {
   this.id = id;             // 模块路径
   this.exports = {};        // 导出的东西放这里，初始化为空对象
   this.loaded = false;      // 用来标识当前模块是否已经加载
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="require方法" tabindex="-1"><a class="header-anchor" href="#require方法" aria-hidden="true">#</a> require方法</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>MyModule.prototype.require = function (id) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>MyModule.prototype.require = function (id) {
   return MyModule._load(id);
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>load方法用来判断require的模块是否已经加入到缓存，并且返回需要加载的模块的exports</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>
 MyModule._load = function (request) {    // request是传入的路径
   const filename = MyModule._resolveFilename(request);
 
@@ -110,7 +110,7 @@ MyModule._load = function (request) {    // request是传入的路径
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>里面的MyModule._resolveFileName不做过多解释，重点解释MyModule.prototype.load</p>
 <p>这个函数就是用来获取文件后缀，并且采取相应的方法加载，这里我们只对.js的加载进行解析</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>MyModule.prototype.load = function (filename) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>MyModule.prototype.load = function (filename) {
   // 获取文件后缀名
   const extname = path.extname(filename);
 
@@ -121,7 +121,7 @@ MyModule._load = function (request) {    // request是传入的路径
 }
 
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果后缀名是.js会调用MyModule.prototype._compile</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>MyModule._extensions['.js'] = function (module, filename) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>MyModule._extensions['.js'] = function (module, filename) {
   const content = fs.readFileSync(filename, 'utf8');
   module._compile(content, filename);
 }
@@ -131,14 +131,14 @@ MyModule._load = function (request) {    // request是传入的路径
 <h2 id="为什么commonjs相互引用没有产生类似死锁的问题" tabindex="-1"><a class="header-anchor" href="#为什么commonjs相互引用没有产生类似死锁的问题" aria-hidden="true">#</a> 为什么commonjs相互引用没有产生类似死锁的问题</h2>
 <p>观察MyModule._load我们可以发现其中的关键在于加载模块和加入缓存的顺序</p>
 <p>即：</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>MyModule._cache[filename] = module;
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>MyModule._cache[filename] = module;
 module.load(filename);
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>假设a.js和b.js相互引用</p>
 <p>若先加载a.js,缓存中没有a.js，那么就会把a.js加入缓存，接着加载a.js，加载a.js的时候发现里面require了b.js，那么又会把b.js加入缓存，加载b.js，b.js发现里面require了a.js，a.js这时已经缓存了，但是还没有module.exports，因为这是a.js还没加载完，这时我们就引入了一个空对象，那么就不会出现循环调用的情况。</p>
 <h1 id="es-module" tabindex="-1"><a class="header-anchor" href="#es-module" aria-hidden="true">#</a> es module</h1>
 <p>前面说ESM编译时输出接口，是因为它的模块解析发生在编译阶段，而commonjs模块解析发生在执行阶段，毕竟module也只是一个对象。</p>
 <p>import 优先执行</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// a.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// a.js
 console.log('a.js')
 import { foo } from './b';
 
@@ -150,7 +150,7 @@ console.log('b.js 先执行');
 // b.js 先执行
 // a.js
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>export 会变量提升，这样就可以避免循环引用造成死锁</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// a.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// a.js
 import { foo } from './b';
 console.log('a.js');
 export const bar = 1;

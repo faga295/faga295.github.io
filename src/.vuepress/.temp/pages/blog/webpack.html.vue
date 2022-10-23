@@ -29,7 +29,7 @@
 <p>我们在<code v-pre>webpack/core</code> 文件夹下创建<code v-pre>index.js</code> 作为核心入口文件。同时建立<code v-pre>webpack.js</code> 作为<code v-pre>webpack()</code> 实现文件。通过<code v-pre>webpack()</code> 得到compiler实例。</p>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/v2-9991b7535f55f0465c3e4bb909a833b9_720w.jpg" alt="img"></p>
 <p>在<code v-pre>index.js</code> 中我们引入<code v-pre>wepack</code> 方法和<code v-pre>webpack.config.js</code> ,将参数传入<code v-pre>webpack()</code> 得到compiler</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function webpack(options) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function webpack(options) {
   // 合并参数 得到合并后的参数 mergeOptions
   const mergeOptions = _mergeOptions(options);
 }
@@ -50,7 +50,7 @@ function _mergeOptions(options) {
 
 module.exports = webpack;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>上面看到<code v-pre>webpack()</code> 返回compiler，其实compiler是一个类，现在我们新建<code v-pre>webpack/core/compiler.js</code> 来编写compiler类，</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// compiler.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// compiler.js
 // Compiler类进行核心编译实现
 class Compiler {
   constructor(options) {
@@ -65,7 +65,7 @@ class Compiler {
 
 module.exports = Compiler
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>修改<code v-pre>webpack()</code></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>function webpack(options) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>function webpack(options) {
   // 合并参数 得到合并后的参数 mergeOptions
   const mergeOptions = _mergeOptions(options);
   // 创建compiler对象
@@ -77,7 +77,7 @@ module.exports = Compiler
 <h1 id="编译准备阶段" tabindex="-1"><a class="header-anchor" href="#编译准备阶段" aria-hidden="true">#</a> 编译准备阶段</h1>
 <h2 id="编写plugin" tabindex="-1"><a class="header-anchor" href="#编写plugin" aria-hidden="true">#</a> 编写plugin</h2>
 <p>在编写plugin之前，先完善一下compiler类</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const { SyncHook } = require('tapable');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const { SyncHook } = require('tapable');
 
 class Compiler {
   constructor(options) {
@@ -101,7 +101,7 @@ class Compiler {
 module.exports = Compiler;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这里定义了<code v-pre>hooks</code> ，会在打包的不同流程时触发，当我们通过<code v-pre>new SyncHook()</code>返回一个对象实例后，我们可以通过<code v-pre>this.hook.run.tap('name',callback)</code>方法为这个对象上添加事件监听，然后在通过<code v-pre>this.hook.run.call()</code>执行所有<code v-pre>tap</code>注册的事件。</p>
 <p>现在我们先切回<code v-pre>webpack.js</code></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const Compiler = require('./compiler');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const Compiler = require('./compiler');
 
 function webpack(options) {
   // 合并参数
@@ -138,7 +138,7 @@ function _loadPlugin(plugins, compiler) {
 
 module.exports = webpack;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这里我们通过<code v-pre>_loadPlugin</code> 来加载配置中的插件，每个<code v-pre>plugin</code> 都有其apply 方法，<code v-pre>plugin</code> 本质上也是一个类，现在我们来开始编写一个<code v-pre>plugin</code> 类。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// plugin-a.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// plugin-a.js
 // 插件A
 class PluginA {
   apply(compiler) {
@@ -166,7 +166,7 @@ module.exports = PluginB;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在这里我们就可以很清楚的明白，其实<code v-pre>webpack</code>插件<strong>本质上就是通过发布订阅的模式，通过<code v-pre>compiler</code>上监听事件。然后再打包编译过程中触发监听的事件从而添加一定的逻辑影响打包结果</strong>。</p>
 <h2 id="寻找入口文件" tabindex="-1"><a class="header-anchor" href="#寻找入口文件" aria-hidden="true">#</a> 寻找入口文件</h2>
 <p>通过配置参数，获取入口文件路径。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// compiler.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// compiler.js
 const { SyncHook } = require('tapable');
 const { toUnixPath } = require('./utils');
 
@@ -249,7 +249,7 @@ function toUnixPath(path) {
 <li>递归编译完成后，组装一个个包含多个模块的<code v-pre>chunk</code></li>
 </ul>
 <p>首先我们来补充一下<code v-pre>compiler.js</code>的逻辑</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>class Compiler {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>class Compiler {
   constructor(options) {
     this.options = options;
     // 创建plugin hooks
@@ -275,7 +275,7 @@ function toUnixPath(path) {
   // ...
  }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="开始编译入口模块" tabindex="-1"><a class="header-anchor" href="#开始编译入口模块" aria-hidden="true">#</a> 开始编译入口模块</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>class Compiler {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>class Compiler {
     // run方法启动编译
   // 同时run方法接受外部传递的callback
   run(callback) {
@@ -313,7 +313,7 @@ function toUnixPath(path) {
 <li>如果该入口文件存在依赖的模块，递归<code v-pre>buildModule</code>方法进行模块编译。</li>
 </ul>
 <p><strong>读取文件内容</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const fs = require('fs');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const fs = require('fs');
 // ...
 class Compiler {
       //...
@@ -331,7 +331,7 @@ class Compiler {
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="匹配loader" tabindex="-1"><a class="header-anchor" href="#匹配loader" aria-hidden="true">#</a> 匹配loader</h2>
 <h3 id="编写loader" tabindex="-1"><a class="header-anchor" href="#编写loader" aria-hidden="true">#</a> 编写loader</h3>
 <p>首先我们需要清楚<strong>简单来说<code v-pre>loader</code>本质上就是一个函数，接受我们的源代码作为入参同时返回处理后的结果。</strong></p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// loader本质上就是一个函数，接受原始内容，返回转换后的内容。
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// loader本质上就是一个函数，接受原始内容，返回转换后的内容。
 function loader1(sourceCode) {
   console.log('join loader1');
   return sourceCode + `\n const loader1 = 'https://github.com/19Qingfeng'`;
@@ -346,7 +346,7 @@ function loader2(sourceCode) {
 
 module.exports = loader2;
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="使用loader处理文件" tabindex="-1"><a class="header-anchor" href="#使用loader处理文件" aria-hidden="true">#</a> 使用loader处理文件</h3>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// 模块编译方法
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// 模块编译方法
   buildModule(moduleName, modulePath) {
     // 1. 读取文件原始代码
     const originSourceCode =
@@ -387,7 +387,7 @@ module.exports = loader2;
 <p>现在只要把模块传入<code v-pre>buildModule</code> 就可以得到经过loader修改后的代码了。</p>
 <h2 id="webpack模块编译阶段" tabindex="-1"><a class="header-anchor" href="#webpack模块编译阶段" aria-hidden="true">#</a> webpack模块编译阶段</h2>
 <p>这里我们需要做的是:<strong>针对当前模块进行编译，将当前模块所有依赖的模块(<code v-pre>require()</code>)语句引入的路径变为相对于跟路径(<code v-pre>this.rootPath</code>)的相对路径</strong>。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>const parser = require('@babel/parser');
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const generator = require('@babel/generator').default;
 const t = require('@babel/types');
@@ -464,7 +464,7 @@ const tryExtensions = require('./utils/index')
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>关注<code v-pre>handleWebpackCompiler</code> 方法，这里我们计算出了模块相对于根路径的相对路径计算作为模块的id出来，接着创建了模块对象，深度优先遍历<code v-pre>ast</code>语法树，当匹配到require时就将依赖的模块也计算出相对于根路径的相对路径作为模块id加入<code v-pre>module.dependenices</code> ，然后将源代码中的require改为<code v-pre>__webpack_require__</code></p>
 <h3 id="递归处理" tabindex="-1"><a class="header-anchor" href="#递归处理" aria-hidden="true">#</a> 递归处理</h3>
 <p>我们只需要在最后添加</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// 递归依赖深度遍历 存在依赖模块则加入
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// 递归依赖深度遍历 存在依赖模块则加入
     module.dependencies.forEach((dependency) => {
       const depModule = this.buildModule(moduleName, dependency);
       // 将编译后的任何依赖模块对象加入到modules对象中去
@@ -473,7 +473,7 @@ const tryExtensions = require('./utils/index')
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这样我们就可以获得</p>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/v2-42d0c7f75fa32ccb632333da83ff4bbb_720w.jpg" alt="img"></p>
 <p>这样我们就可以获得解析后的入口文件对象，和所有入口文件依赖的对象</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>Set {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>Set {
   {
     id: './example/src/entry1.js',
     dependencies: Set { './example/src/module.js' },
@@ -522,7 +522,7 @@ Set {
   }
 } modules
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这里<code v-pre>module.js</code> 被引用了两次，对<code v-pre>handleWebpackCompiler</code>进行一下优化</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>    handleWebpackCompiler(moduleName, modulePath) {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>    handleWebpackCompiler(moduleName, modulePath) {
        ...
         // 通过babel修改源代码中的require变成__webpack_require__语句
           node.callee = t.identifier('__webpack_require__');
@@ -556,7 +556,7 @@ Set {
 </ul>
 <h1 id="编译完成阶段" tabindex="-1"><a class="header-anchor" href="#编译完成阶段" aria-hidden="true">#</a> 编译完成阶段</h1>
 <p>在将所有模块递归编译完成后，我们需要<strong>根据上述的依赖关系，组合最终输出的<code v-pre>chunk</code>模块</strong>。</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>class Compiler {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>class Compiler {
 
     // ...
     buildEntryModule(entry) {
@@ -587,7 +587,7 @@ Set {
       // ...
 }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>关注<code v-pre>buildUpChunk</code> 方法，chunk是一个对象，包括入口文件的名称，入口文件编译后的对象和其依赖的模块</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>Set {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>Set {
   {
     name: 'main',
     entryModule: {
@@ -629,7 +629,7 @@ Set {
 <p>此时编译完成我们拼装<code v-pre>chunk</code>的环节就圆满完成。</p>
 <h1 id="输出文件阶段" tabindex="-1"><a class="header-anchor" href="#输出文件阶段" aria-hidden="true">#</a> 输出文件阶段</h1>
 <p>我们先来看下用原本<code v-pre>webpack</code>打包出来的样子</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>(() => {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>(() => {
   var __webpack_modules__ = {
     './example/src/module.js': (module) => {
       const name = '19Qingfeng';
@@ -685,7 +685,7 @@ Set {
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/images/typora/v2-d3295115ff75616cabd412608a0a1bc1_720w.jpg" alt="img"></p>
 <p>这一块是入口文件依赖的代码</p>
 <p>回到compiler的run方法</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>   class Compiler {
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>   class Compiler {
    
    }
   // run方法启动编译
@@ -701,7 +701,7 @@ Set {
     this.exportFile(callback);
   }
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><code v-pre>exportFile</code>方法</p>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// 将chunk加入输出列表中去
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// 将chunk加入输出列表中去
   exportFile(callback) {
     const output = this.options.output;
     // 根据chunks生成assets内容
@@ -748,7 +748,7 @@ Set {
 <li>同时为<code v-pre>NodeJs Webpack APi</code>呼应，调用<code v-pre>run</code>方法中外部传入的<code v-pre>callback</code>传入两个参数。</li>
 </ul>
 <h2 id="getsourcecode方法" tabindex="-1"><a class="header-anchor" href="#getsourcecode方法" aria-hidden="true">#</a> getSourceCode方法</h2>
-<div class="language-text ext-text line-numbers-mode"><pre v-pre class="language-text"><code>// webpack/utils/index.js
+<div class="language-text line-numbers-mode" data-ext="text"><pre v-pre class="language-text"><code>// webpack/utils/index.js
 
 ...
 
