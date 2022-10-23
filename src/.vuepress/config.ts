@@ -16,7 +16,6 @@ export default defineUserConfig({
         '/blog/':[
           'histoire',
           'vite',
-          'remark',
           'react',
           'web_upload_oss',
           'webpack',
