@@ -49,7 +49,7 @@
 
 <hr>
 
-`virtual module` 在histoire中发挥非常重要的作用,例如在`histoire app`中引入story的时候，就用到了`virtural module`![image-20221022223008226](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20221022223008226.png)
+`virtual module` 在histoire中发挥非常重要的作用,例如在`histoire app`中引入story(也就是用户暴露的.story.vue, histoire会将其转换为story对象)的时候，就用到了`virtural module`![image-20221022223008226](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20221022223008226.png)
 
 `virtural module`的实现其实很简单，只需要在`resolveId`的时候判断一下id是不是`virtual module`,如果是则返回`\0`+`virtual module`的`id`,当然这只是个约定，因为`import URLs`是不会处理`\0`为头的模块的
 
@@ -73,6 +73,4 @@ export default function myPlugin() {
   }
 }
 ```
-
-
-
+具体实现可以看[这里](https://github.com/histoire-dev/histoire/blob/main/packages/histoire/src/node/vite.ts#L250)
