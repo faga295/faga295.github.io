@@ -992,7 +992,7 @@ samesite cookie set-cookie新增了Samesite属性，只允许第一方携带cook
 
 CSRF Token 这个token不应该放在cookie中，每次请求都需要在header中加上token
 
-双重cookie验证 利用csrf不能获取cookie的特点，在请求中加上cookie这个参数来再次验证coASD789?!ie
+双重cookie验证 利用csrf不能获取cookie的特点，在请求中加上cookie这个参数来再次验证
 
 ### XSS
 XSS（Cross Site Scripting，跨站脚本攻击）
