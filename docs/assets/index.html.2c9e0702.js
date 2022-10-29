@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-d804e652","path":"/slide/","title":"Slides","lang":"en-US","frontmatter":{"title":"Slides","blog":{"type":"type","key":"slide"},"layout":"Blog"},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0,"words":0},"filePathRelative":null}');export{e as data};

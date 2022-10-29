@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-npm run docs:build
-cp CNAME docs/
-cp .nojekyll docs/
-git add .
