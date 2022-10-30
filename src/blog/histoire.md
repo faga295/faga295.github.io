@@ -5,20 +5,7 @@
 因为是在给`element-plus`写`histoire`文档的时候，发现如果给文本固定了颜色的话，那在变换背景颜色的时候会出现有一些背景颜色文本几乎和背景重合，因此我给`histoire`提了一个[issue](https://github.com/histoire-dev/histoire/issues/328),并且提出了三种解决方案,最终Akryum认可了我第三个方案，就是提供一个css变量，这个css变量代表和背景的反差色，会随着背景颜色的变化而变化
 
 ## histoire中值得学习的部分
-![](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/20221022164802.png)
-先来看一下`histoire`这个包,很神奇的事这个包只进行了类型校验，并没有对这个包进行打包也就是说，你去`node_modules`里去看这个包
-
-![](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/20221022165828.png)
-
-它是这个样子的，还是比较少见的。这个包主要用来提供`cli`，因此打不打包问题不大。
-
-<hr>
-
 由于我提的pr是一个`feature`,因此必须增加一系列的测试,测试做的是`end to end test`,`end to end test`相当于就是测试来帮你去做点点点的工作，用的是[cypress](https://cypress.io)
-
-<hr>
-
-包管理使用的`pnpm` 以及`monorepo` 这块我就不继续介绍了。
 
 <hr>
 
@@ -74,3 +61,4 @@ export default function myPlugin() {
 }
 ```
 具体实现可以看[这里](https://github.com/histoire-dev/histoire/blob/main/packages/histoire/src/node/vite.ts#L250)
+
