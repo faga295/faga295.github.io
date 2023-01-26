@@ -21,6 +21,7 @@ export default defineUserConfig({
           'webpack',
           'interview',
           'commonjs&esmodule',
+          'tokei'
         ]
       },
       blog: {
