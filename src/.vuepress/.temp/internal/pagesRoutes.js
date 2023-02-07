@@ -1,5 +1,5 @@
 export const pagesRoutes = [
-  ["v-8daa1a0e","/",{"t":"","y":"h","r":{"minutes":0.27,"words":80}},["/index.html","/README.md"]],
+  ["v-8daa1a0e","/",{"t":"","y":"h","r":{"minutes":0.32,"words":95}},["/index.html","/README.md"]],
   ["v-411eebfe","/blog/commonjs&esmodule.html",{"t":"commonjs和esmodule的区别","y":"a","d":"2022-02-13T18:39:15.000Z","l":"February 14, 2022","r":{"minutes":4.07,"words":1221}},["/blog/commonjs&esmodule","/blog/commonjs&esmodule.md"]],
   ["v-16486196","/blog/histoire.html",{"t":"给histoire提pr的一次记录","y":"a","r":{"minutes":2.1,"words":631}},["/blog/histoire","/blog/histoire.md"]],
   ["v-7b7b3b28","/blog/interview.html",{"t":"前端面试","y":"a","d":"2021-10-15T21:58:54.000Z","l":"October 16, 2021","r":{"minutes":116.84,"words":35053}},["/blog/interview","/blog/interview.md"]],

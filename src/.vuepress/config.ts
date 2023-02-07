@@ -9,19 +9,20 @@ export default defineUserConfig({
       repoDisplay: false,
       navbar: [
         { text:'主页', link:'/' },
-        { text: '笔记', link: '/blog/' },
+        { text: '笔记', link: '/blog/tokei' },
         { text: 'Github', link: 'https://github.com/faga1' }
       ],
       sidebar: {
         '/blog/':[
+          'tokei',
           'histoire',
           'vite',
+          'remark',
           'react',
           'web_upload_oss',
           'webpack',
           'interview',
           'commonjs&esmodule',
-          'tokei'
         ]
       },
       blog: {
