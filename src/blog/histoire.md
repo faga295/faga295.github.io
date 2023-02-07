@@ -1,3 +1,8 @@
+---
+title: 给histoire提pr的一次记录
+date: 2022-10-15
+tags: pr histoire
+---
 # 给histoire提pr的一次记录
 [histoire](https://histoire.dev)相当于是vue版的`storybook`。
 

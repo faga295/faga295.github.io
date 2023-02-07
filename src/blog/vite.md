@@ -1,3 +1,8 @@
+---
+title: vite
+date: 2022-11-08
+tags: vite
+---
 # vite
 
 ## vite的特性
