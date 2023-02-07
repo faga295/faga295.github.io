@@ -662,7 +662,7 @@ Token 要注意保密性————敏感操作使用 post，防止 Token 出�
 <p>同源检测就是后面造成跨域的原因，他让服务端只能接受来自同源(同一台主机同一个路径同一个端口同一个协议)的请求</p>
 <p>samesite cookie set-cookie新增了Samesite属性，只允许第一方携带cookie</p>
 <p>CSRF Token 这个token不应该放在cookie中，每次请求都需要在header中加上token</p>
-<p>双重cookie验证 利用csrf不能获取cookie的特点，在请求中加上cookie这个参数来再次验证coASD789?!ie</p>
+<p>双重cookie验证 利用csrf不能获取cookie的特点，在请求中加上cookie这个参数来再次验证</p>
 <h3 id="xss" tabindex="-1"><a class="header-anchor" href="#xss" aria-hidden="true">#</a> XSS</h3>
 <p>XSS（Cross Site Scripting，跨站脚本攻击）</p>
 <p>XSS 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 JavaScript 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>

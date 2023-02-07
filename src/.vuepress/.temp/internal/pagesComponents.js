@@ -3,8 +3,6 @@ import { defineAsyncComponent } from 'vue'
 export const pagesComponents = {
   // path: /
   "v-8daa1a0e": defineAsyncComponent(() => import(/* webpackChunkName: "v-8daa1a0e" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/index.html.vue")),
-  // path: /blog/
-  "v-145ac574": defineAsyncComponent(() => import(/* webpackChunkName: "v-145ac574" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/index.html.vue")),
   // path: /blog/commonjs&esmodule.html
   "v-411eebfe": defineAsyncComponent(() => import(/* webpackChunkName: "v-411eebfe" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/commonjs&esmodule.html.vue")),
   // path: /blog/histoire.html
@@ -15,6 +13,8 @@ export const pagesComponents = {
   "v-42c4032e": defineAsyncComponent(() => import(/* webpackChunkName: "v-42c4032e" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/react.html.vue")),
   // path: /blog/remark.html
   "v-3443b765": defineAsyncComponent(() => import(/* webpackChunkName: "v-3443b765" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/remark.html.vue")),
+  // path: /blog/tokei.html
+  "v-5bd623d9": defineAsyncComponent(() => import(/* webpackChunkName: "v-5bd623d9" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/tokei.html.vue")),
   // path: /blog/vite.html
   "v-00864001": defineAsyncComponent(() => import(/* webpackChunkName: "v-00864001" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/vite.html.vue")),
   // path: /blog/web_upload_oss.html

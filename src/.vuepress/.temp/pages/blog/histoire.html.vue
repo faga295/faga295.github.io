@@ -3,14 +3,7 @@
 <h2 id="issue" tabindex="-1"><a class="header-anchor" href="#issue" aria-hidden="true">#</a> issue</h2>
 <p>因为是在给<code v-pre>element-plus</code>写<code v-pre>histoire</code>文档的时候，发现如果给文本固定了颜色的话，那在变换背景颜色的时候会出现有一些背景颜色文本几乎和背景重合，因此我给<code v-pre>histoire</code>提了一个<a href="https://github.com/histoire-dev/histoire/issues/328" target="_blank" rel="noopener noreferrer">issue<ExternalLinkIcon/></a>,并且提出了三种解决方案,最终Akryum认可了我第三个方案，就是提供一个css变量，这个css变量代表和背景的反差色，会随着背景颜色的变化而变化</p>
 <h2 id="histoire中值得学习的部分" tabindex="-1"><a class="header-anchor" href="#histoire中值得学习的部分" aria-hidden="true">#</a> histoire中值得学习的部分</h2>
-<p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/20221022164802.png" alt="">
-先来看一下<code v-pre>histoire</code>这个包,很神奇的事这个包只进行了类型校验，并没有对这个包进行打包也就是说，你去<code v-pre>node_modules</code>里去看这个包</p>
-<p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/20221022165828.png" alt=""></p>
-<p>它是这个样子的，还是比较少见的。这个包主要用来提供<code v-pre>cli</code>，因此打不打包问题不大。</p>
-<hr>
 <p>由于我提的pr是一个<code v-pre>feature</code>,因此必须增加一系列的测试,测试做的是<code v-pre>end to end test</code>,<code v-pre>end to end test</code>相当于就是测试来帮你去做点点点的工作，用的是<a href="https://cypress.io" target="_blank" rel="noopener noreferrer">cypress<ExternalLinkIcon/></a></p>
-<hr>
-<p>包管理使用的<code v-pre>pnpm</code> 以及<code v-pre>monorepo</code> 这块我就不继续介绍了。</p>
 <hr>
 <p>接下来是<code v-pre>vue sfc</code>的<code v-pre>custom block</code>的实现</p>
 <p><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20221022172113663.png" alt="image-20221022172113663"></p>
@@ -31,7 +24,7 @@
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>以上就是<code v-pre>custom block</code>的实现，虽然没有看过<code v-pre>vue sfc</code>插件的实现，但是大概能看出来，<code v-pre>vue sfc</code>会把<code v-pre>&lt;docs&gt;&lt;/docs&gt;</code>转换成<code v-pre>import</code>一个模块的方式,不然也能通过<code v-pre>transform</code>获取到。然后该模块的id大概是:原.vue文件的id加上<code v-pre>?vue&amp;type=docs</code> 如果<code v-pre>custom block</code>是<code v-pre>&lt;docs lang='md'&gt;&lt;/docs&gt;</code>,那么还会加上<code v-pre>&amp;lang.md</code>。</p>
 <hr>
-<p><code v-pre>virtual module</code> 在histoire中发挥非常重要的作用,例如在<code v-pre>histoire app</code>中引入story的时候，就用到了<code v-pre>virtural module</code><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20221022223008226.png" alt="image-20221022223008226"></p>
+<p><code v-pre>virtual module</code> 在histoire中发挥非常重要的作用,例如在<code v-pre>histoire app</code>中引入story(也就是用户暴露的.story.vue, histoire会将其转换为story对象)的时候，就用到了<code v-pre>virtural module</code><img src="https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20221022223008226.png" alt="image-20221022223008226"></p>
 <p><code v-pre>virtural module</code>的实现其实很简单，只需要在<code v-pre>resolveId</code>的时候判断一下id是不是<code v-pre>virtual module</code>,如果是则返回<code v-pre>\0</code>+<code v-pre>virtual module</code>的<code v-pre>id</code>,当然这只是个约定，因为<code v-pre>import URLs</code>是不会处理<code v-pre>\0</code>为头的模块的</p>
 <div class="language-javascript line-numbers-mode" data-ext="js"><pre v-pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">myPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> virtualModuleId <span class="token operator">=</span> <span class="token string">'virtual:my-module'</span>
@@ -51,6 +44,7 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>具体实现可以看<a href="https://github.com/histoire-dev/histoire/blob/main/packages/histoire/src/node/vite.ts#L250" target="_blank" rel="noopener noreferrer">这里<ExternalLinkIcon/></a></p>
+</div></template>
 
 

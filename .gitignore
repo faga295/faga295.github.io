@@ -1,2 +1,3 @@
 node_modules
-src/.vuepress/config.ts
+.cache
+.temp

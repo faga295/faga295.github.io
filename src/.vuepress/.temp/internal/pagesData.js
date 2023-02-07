@@ -1,8 +1,6 @@
 export const pagesData = {
   // path: /
   "v-8daa1a0e": () => import(/* webpackChunkName: "v-8daa1a0e" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/index.html.js").then(({ data }) => data),
-  // path: /blog/
-  "v-145ac574": () => import(/* webpackChunkName: "v-145ac574" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/index.html.js").then(({ data }) => data),
   // path: /blog/commonjs&esmodule.html
   "v-411eebfe": () => import(/* webpackChunkName: "v-411eebfe" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/commonjs&esmodule.html.js").then(({ data }) => data),
   // path: /blog/histoire.html
@@ -13,6 +11,8 @@ export const pagesData = {
   "v-42c4032e": () => import(/* webpackChunkName: "v-42c4032e" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/react.html.js").then(({ data }) => data),
   // path: /blog/remark.html
   "v-3443b765": () => import(/* webpackChunkName: "v-3443b765" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/remark.html.js").then(({ data }) => data),
+  // path: /blog/tokei.html
+  "v-5bd623d9": () => import(/* webpackChunkName: "v-5bd623d9" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/tokei.html.js").then(({ data }) => data),
   // path: /blog/vite.html
   "v-00864001": () => import(/* webpackChunkName: "v-00864001" */"/Users/faga/i/faga1.github.io/src/.vuepress/.temp/pages/blog/vite.html.js").then(({ data }) => data),
   // path: /blog/web_upload_oss.html
