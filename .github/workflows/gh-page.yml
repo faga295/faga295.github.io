@@ -18,11 +18,12 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
       - name: Build
         run: |
-          npm i pnpm -g
-          pnpm i
+          pnpm i --no-frozen-lockfile
           pnpm docs:build
       
       - name: Deploy
