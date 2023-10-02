@@ -20,6 +20,66 @@ tags: rust
 
 在渲染之前，我们需要拿到一个.ttf的字体，并把它加载进来，我们可以通过[font-kit](https://github.com/servo/font-kit)这种工具加载系统已经安装好的字体。拿到字体之后， 我们需要去解析这个字体，我们可以使用[ttf-parser](https://github.com/RazrFalcon/ttf-parser), 解析之后，我们就可以实现光栅化某一个字符，在文本渲染中，这些光栅化后的字符称之为字形(glyph).但是目前只能光栅化某一个字符，并不能光栅化一个字符串，因此我们就需要对字形布局(layout)，这个布局就是需要控制每一个字符和字符之间的位置，包括换行也是需要layout去做，[fontdue](https://github.com/mooman219/fontdue)是基于`ttf-parser`, 实现了光栅化和布局的功能，因此在加载完字体后就可以直接通过fontdue去做字体的渲染。
 
+## 数字化字体
+
+数字化字体讲述的是如何把一个字符的外形 通过数据的形式保存下来。
+
+我们知道每个字符都有它的轮廓(outline), 每个轮廓又是由闭合的线构成(coutour), 这个闭合的线不管是曲线还是直线都是可以通过点来描述，例如两个在线上的点可以描述一条线段，两个在线上的以及一个在线外的点，可以描述一段二次曲线，通过线段和曲线足以构成任何你想要的曲线，因此最终存储在ttf文件中的都是一系列点和坐标
+
+![](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/202310021734388.png)
+
+那这个坐标的又是以什么为单位的呢？
+
+答案是**font unit**, font unit是的大小是由字体作者指定的，因此就会存在一个非常关键的属性`units_per_em`, `units_per_em` 每em长度有多少units， units越多，字体描述的越接近原先设计的形状。
+
+![](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/202310021811659.png)
+
+## 光栅化字符
+
+光栅化字符分为三步，第一步将主轮廓根据想要展现的字符大小进行缩放，再对缩放后的轮廓进行`grid-fit`, 最后光栅化
+
+![image-20231002181519772](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/image-20231002181519772.png)
+
+缩放：
+
+> ```
+> pointSize * resolution / (72 points per inch * units_per_em).
+> ```
+>
+> where *pointSize* is the size at which the glyph is to be displayed, *resolution* is the resolution of the output device and *units per em* is the resolution of the grid of which the master outline was originally defined. The 72 in the denominator represents the number of points per inch.
+
+Grid fit是由一系列指令组成，详细的可以看[这里](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM05/Chap5.html)
+
+### 光栅化
+
+gird fit后就可以进行光栅化了，光栅化的第一条规则就是
+
+> *Rule 1: If a pixel's center falls within or on the glyph outline, that pixel is turned on and becomes part of the bitmap image of the glyph.*
+
+就是说需要判断这个像素的中心是否落在字形的轮廓里，判断的方法是从像素的中心向外发出一条射线(任意方向)，记录一个count为0，如果轮廓从下至上或者从右到左穿过这条射线(on-transition)，那么`count++`,如果轮廓从上至下或者从左到右穿过这条射线(off-transition)，那么`count--`，如果最终的`count != 0`,那么就认为这个像素落在轮廓里面
+
+接着就是一些特定情况的规则
+
+![](https://lzc-personal-resource.oss-cn-beijing.aliyuncs.com/202310022002880.png)
+
+> *Rule 2a: If a horizontal scan line connecting two adjacent pixel centers is intersected by both an on-transition contour and an off-transition contour, and neither of the two pixels was already turned on by rule 1, turn on the left-most pixel.*
+>
+>  
+>
+> *Rule 2b: If a vertical scan line connecting two adjacent pixel centers is intersected by both an on-transition contour and an off-transition contour, and neither of the two pixels was already turned on by rule 1, turn on the bottom-most pixel.*
+>
+>  
+>
+> The scan converter can also be operated in a mode in which only dropouts are filled in and stubs are left as is (scan converter mode 1). Rules 3a and 3b describe its operation in this mode.
+>
+> *Rule 3a: If a horizontal scan line connecting two adjacent pixel centers is intersected by both an on-transition contour and an off-transition contour, neither of the pixels was already turned on by rule 1, and the two contours continue on to intersect other scan lines (this is not a 'stub'), turn on the left-most pixel.*
+>
+>  
+>
+> *Rule 3b: If a vertical scan line connecting two adjacent pixel centers is intersected by both an on-transition contour and an off-transition contour, neither of the pixels was already turned on by rule 1, and the two contours continue on to intersect other scan lines (this is not a 'stub'),turn on the bottom-most pixel.*
+
+
+
 ## 使用fontdue渲染字符串
 
 想要通过fontdue渲染一个字符，非常的简单，README上面就有例子，但是fontdue并没有直接提供渲染字符串的例子，因为作者认为布局和每个字符的bitmap都给你了，那你自己就可以渲染(附上issue: https://github.com/mooman219/fontdue/issues/128)
